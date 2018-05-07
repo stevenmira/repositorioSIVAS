@@ -37,11 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'appAdminAplicacion',
+    'appAdminAeropuerto',
+    'appAdminVuelo',
+    'appCliente',
 ]
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -74,11 +79,15 @@ WSGI_APPLICATION = 'SIVAS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+DATABASES = { 
+    'default': { 
+       'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+       'NAME': 'BDSIVAS',      #Nombre de la BBDD
+       'USER': 'postgres', 
+        'PASSWORD': 'admin', 
+        'HOST': 'localhost', 
+        'PORT': '5432', 
+    } 
 }
 
 
@@ -104,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-mx'
 
 TIME_ZONE = 'UTC'
 
