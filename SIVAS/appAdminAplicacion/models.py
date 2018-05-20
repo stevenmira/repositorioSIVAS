@@ -494,35 +494,3 @@ class pago(models.Model):
 
 	def __str__(self):
 		return '%s %s %s %s' % (self.id_pago, self.cantidad_pago, self.fecha_pago, self.estado_pago)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
