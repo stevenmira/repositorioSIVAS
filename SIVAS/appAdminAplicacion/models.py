@@ -6,7 +6,7 @@ class pais(models.Model):
 	id_pais = models.AutoField(primary_key=True)
 	codigo_pais = models.IntegerField(null=False, blank=False)
 	nombre_pais = models.CharField(max_length=30, null=False, blank=False)
-
+	cod_iata_pais = models.CharField(max_length=2,null=False,blank=False)
 	creado_en = models.DateTimeField(auto_now_add=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
 	actualizado_en = models.DateTimeField(auto_now=True)
@@ -22,6 +22,7 @@ class ciudad(models.Model):
 	id_ciudad = models.AutoField(primary_key=True)
 	pais = models.ForeignKey(pais, null=False, db_column='id_pais', on_delete=models.CASCADE)
 	codigo_ciudad = models.IntegerField(null=False, blank=False)
+	cod_iata_ciudad = models.CharField(max_length=3,null=False,blank=False)
 	nombre_ciudad = models.CharField(max_length=30, null=False, blank=False)
 
 	creado_en = models.DateTimeField(auto_now_add=True)
@@ -494,35 +495,3 @@ class pago(models.Model):
 
 	def __str__(self):
 		return '%s %s %s %s' % (self.id_pago, self.cantidad_pago, self.fecha_pago, self.estado_pago)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
