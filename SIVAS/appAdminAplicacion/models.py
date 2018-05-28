@@ -16,7 +16,7 @@ class pais(models.Model):
 		db_table = 'pais'
 
 	def __str__(self):
-		return '%s %s %s' % (self.id_pais, self.codigo_pais, self.nombre_pais)
+		return '%s %s %s' % (self.id_pais, self.cod_iata_pais, self.nombre_pais)
 
 class ciudad(models.Model):
 	id_ciudad = models.AutoField(primary_key=True)
@@ -34,7 +34,7 @@ class ciudad(models.Model):
 		db_table = 'ciudad'
 
 	def __str__(self):
-		return '%s %s %s' % (self.id_ciudad, self.codigo_ciudad, self.nombre_ciudad)
+		return '%s %s %s' % (self.id_ciudad, self.cod_iata_ciudad, self.nombre_ciudad)
 
 class aeropuerto(models.Model):
 	codigo_aeropuerto = models.CharField(primary_key=True, max_length=10)
