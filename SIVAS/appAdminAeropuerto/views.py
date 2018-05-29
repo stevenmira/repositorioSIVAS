@@ -23,7 +23,7 @@ def pais_create(request):
         form = PaisForm(request.POST)
         if  form.is_valid():
             paisx = pais(
-                codigo_pais =1,
+                
                 nombre_pais = form.cleaned_data['nombre_pais'],
                 cod_iata_pais = form.cleaned_data['cod_iata_pais'],
             )
@@ -39,6 +39,9 @@ def ciudad_create(request):
     if request.method == 'POST':
         form = CiudadForm(request.POST)
         if  form.is_valid():
+            ciudadx = ciudad(
+
+            )
             form.save()
         return redirect ('appCliente: index')
     else:
@@ -47,3 +50,8 @@ def ciudad_create(request):
 
 def curso_exito(request):
     return render(request,'exito.html',None)
+
+class PaisList(ListView):
+    model = pais
+    template_name = "listaPaises.html"
+    paginate_by = 10
