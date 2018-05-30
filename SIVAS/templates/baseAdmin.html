@@ -124,6 +124,18 @@
             </li>
 
             <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-file-text"></i>
+                  <span>Administracion</span>
+                   <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                  <li><a href="{% url "aaae:listaPais" %}"><i class="fa fa-circle-o"></i>Paises</a></li>
+                  <li><a href="{% url "aaae:listaCiudad" %}"><i class="fa fa-circle-o"></i>Ciudades</a></li>
+                </ul>
+              </li>
+
+            <li class="treeview">
               <a href="#">
                 <i class="fa fa-cog"></i> 
                 <span>Ajustes</span>

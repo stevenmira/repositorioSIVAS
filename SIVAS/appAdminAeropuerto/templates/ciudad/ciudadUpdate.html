@@ -34,7 +34,11 @@
     
   
 </div>
-
-<button type="submit">Guardar</button>
+<div class="row">
+        <div class="form-group col-md-11">
+    <button class="btn btn-primary pull-right" type="submit">Actualizar</button>
+    <a class="btn btn-warning col-md-offset-1 pull-left" href="{% url "aaae:listaCiudad" %}">Regresar</a>
+    </div>
+    </div>
 </form>
 {% endblock %}
