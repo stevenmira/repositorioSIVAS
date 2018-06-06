@@ -1,0 +1,58 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+
+<div class="tab-content">
+    <div id="Summery" class="tab-pane fade in active">
+
+        <div class="table-responsive panel">
+      <table class="table">
+        <tbody>
+        <tr>
+            <td class="text-success"><i class="fa fa-list-ol"></i> Codigo de Linea Aerea</td>
+            <td>{{  linea.codigo_linea_aerea }}</td>
+        </tr>
+        <tr>
+            <td class="text-success"><i class="fa fa-university"></i> Nombre Oficial</td>
+            <td>{{  linea.nombre_oficial }}</td>
+        </tr>
+           <tr>
+            <td class="text-success"><i class="fa fa-university"></i> Nombre Corto</td>
+            <td>{{  linea.nombre_corto }}</td>
+        </tr>
+        <tr>
+            <td class="text-success"><i class="fa fa-flag"></i> Pais</td>
+            <td>{{  linea.pais.nombre_pais }}</td>
+        </tr>
+        <tr>
+            <td class="text-success"><i class="fa fa-user"></i> Nombre de Representante</td>
+            <td>{{  linea.nombre_representante }}</td>
+        </tr>
+        <tr>
+            <td class="text-success"><i class="fa fa-envelope-o"></i> Facebook</td>
+            <td>
+                {{  linea.direccion_facebook}}
+            </td>
+        </tr>
+           <tr>
+            <td class="text-success"><i class="fa fa-envelope-o"></i> Twitter</td>
+            <td>
+                {{  linea.direccion_twitter}}
+            </td>
+        </tr>
+           <tr>
+            <td class="text-success"><i class="fa fa-envelope-o"></i> Correo</td>
+            <td>
+                {{  linea.email_linea_aerea }}
+            </td>
+        </tr>
+
+
+        </tbody>
+      </table>
+        </div>
+    </div>
+
+
+    {% endblock %}
+
+
