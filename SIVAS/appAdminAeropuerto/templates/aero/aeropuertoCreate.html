@@ -1,4 +1,4 @@
-{% extends "baseCliente.html" %}
+{% extends "baseAdmin.html" %}
 {% block contenido %}
 
 
@@ -38,6 +38,13 @@
   
 </div>
 
-
+<div class="row">
+    <div class="form-group col-md-11">
+<button class="btn btn-primary pull-right" type="submit">Guardar</button>
+<a class="btn btn-warning col-md-offset-1 pull-left" href="{% url "aaae:listaAero" %}">Regresar</a>
+</div>
+</div>
+{{form.codigo_aeropuerto}}
+{{ form.errors }}
 </form>
 {% endblock %}

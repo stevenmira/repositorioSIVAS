@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.urlresolvers import reverse_lazy
 from appAdminAeropuerto.forms import *
-from appAdminAeropuerto.models import *
+from appAdminAplicacion.models import *
 
 
 from django.views.generic.list import ListView
@@ -18,14 +18,40 @@ def index(request):
 
 
 def aeropuerto_create(request):
+
     if request.method == 'POST':
         form = AeropuertoForm(request.POST)
         if form.is_valid():
-            form.save()
-        return redirect('appCliente: index')
+            num = aeropuerto.objects.filter(ciudad = form.cleaned_data['ciudad'])
+            count = len(num)
+            codigo = form.cleaned_data['ciudad']
+            if count == 0:
+
+
+                aerox = aeropuerto(
+                    ciudad = form.cleaned_data['ciudad'],
+                    nombre_aeropuerto = form.cleaned_data['nombre_aeropuerto'],
+                    telefono_aeropuerto = form.cleaned_data['telefono_aeropuerto'],
+                    nombre_responsable = form.cleaned_data['nombre_responsable'],
+                    codigo_aeropuerto = codigo.cod_iata_ciudad+str(count+1))
+                aerox.save()
+                return redirect('aaae:listaPais')
+
+            else:
+                aerox = aeropuerto(
+                    ciudad = form.cleaned_data['ciudad'],
+                    nombre_aeropuerto = form.cleaned_data['nombre_aeropuerto'],
+                    telefono_aeropuerto = form.cleaned_data['telefono_aeropuerto'],
+                    nombre_responsable = form.cleaned_data['nombre_responsable'],
+                    codigo_aeropuerto = codigo.cod_iata_ciudad+str(count+1))
+                aerox.save()
+                return redirect('aaae:listaPais')
+        else:
+            return render(request, 'aero/aeropuertoCreate.html', {'form':form})
     else:
         form = AeropuertoForm()
-    return render(request, 'aeropuertoCreate.html', {'form':form})
+    return render(request, 'aero/aeropuertoCreate.html', {'form':form})
+
 
 def pais_create(request):
     if request.method == 'POST':
@@ -44,6 +70,23 @@ def pais_create(request):
         form = PaisForm
     return render(request,'pais/paisCreate.html',{'form':form})
 
+class AeroList(ListView):
+    model = aeropuerto
+    template_name = "aero/listaAeropuerto.html"
+    paginate_by = 10
+
+class AeroUpdate(UpdateView):
+    model = aeropuerto
+    form_class = AeropuertoForm
+    template_name = "aero/aeroUpdate.html"
+    success_url = reverse_lazy('aaae:listaAero')
+
+class AeroDelete(DeleteView):
+    model = aeropuerto
+    template_name = "aero/aeroDelete.html"
+    success_url = reverse_lazy('aaae:listaAero')
+
+
 def ciudad_create(request):
     if request.method == 'POST':
         form = CiudadForm(request.POST)
@@ -53,7 +96,7 @@ def ciudad_create(request):
                 cod_iata_ciudad = form.cleaned_data['cod_iata_ciudad'],
                 nombre_ciudad = form.cleaned_data['nombre_ciudad'],
             )
-            form.save()
+            ciudadx.save()
         return redirect ('aaae:listaCiudad')
     else:
         form = CiudadForm()
