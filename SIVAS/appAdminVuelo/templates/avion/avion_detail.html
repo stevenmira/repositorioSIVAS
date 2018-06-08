@@ -1,0 +1,148 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+{% load staticfiles %}
+
+<style type="text/css">
+    #btn {
+          width: 45px;
+          height: 45px;
+          text-align: center;
+          padding: 7px 0;
+          font-size: 24px;
+          line-height: 1.428571429;
+          border-radius: 25px;
+          box-shadow: 0 3px 5px rgba(0,0,0,.4);
+        }
+
+        a.verde[data-title]:hover:after, a.azul[data-title]:hover:after {
+          content: attr(data-title);
+          padding: 6px 8px;
+          margin: -25px 0px;
+          color: #fff;
+          left: -110px;
+          font-size: 15px;
+        }
+
+        a.azul[data-title]:hover:after, a.azul[data-title]:hover:after {
+          content: attr(data-title);
+          padding: 6px 8px;
+          margin: -25px 0px;
+          color: #fff;
+          left: -110px;
+          font-size: 15px;
+        }
+</style>
+
+<section class="content-header">
+  <h1 style="color: #333333; font-family: 'Times New Roman', Times, serif;">
+      DETALLE DE AVIÓN
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active"><a href="#"> Aerolineas</a></li>
+    <li class="active"><a href="#"> Aviones</a></li>
+    <li class="active">Detalle</li>
+  </ol>
+</section>
+<br>
+
+<section>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 toppad" >
+      <div class="panel panel-info">
+
+        <div class="panel-heading">
+          <h3 class="panel-title">INFORMACIÓN DEL AVIÓN</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-3 col-lg-3 " align="center"> 
+              <img alt="User Pic" src="{% static 'img/avion.jpg' %}" class="img-circle img-responsive"> 
+            </div>
+
+            <div class=" col-md-9 col-lg-9 "> 
+              <table class="table table-user-information">
+                <tbody>
+                  <tr>
+                    <td>TIPO:</td>
+                    <td>{{ avionX.tipo_avion.nombre_tipo_avion}}</td>
+                  </tr>
+
+                  <tr>
+                    <td>MARCA:</td>
+                    <td>{{ avionX.marca }}</td>
+                  </tr>
+
+                  <tr>
+                    <td>MODELO:</td>
+                    <td>{{ avionX.modelo}}</td>
+                  </tr>
+
+                  <tr>
+                    <td>CAPACIDAD DE ASIENTOS:</td>
+                    <td>{{ avionX.capacidad_asientos }}</td>
+                  </tr>
+
+                  <tr>
+                    <td>ESTADO DEL AVIÓN:</td>
+                    <td>{{ avionX.estado_avion }}</td>
+                  </tr>
+
+                </tbody>
+              </table>
+              <a id="btn" href="{% url "aav:clasesAvion" avionX.id_avion %}" class="btn btn-success btn-lg col-md-offset-10 col-lg-offset-10 verde" data-title="Agregar Clase"><i class="fa fa-plus"></i></a>
+
+              <a id="btn" href="{% url "aav:asientosAvion" avionX.id_avion %}" class="btn btn-primary btn-lg pull-right azul" data-title="Agregar Clase"><i class="fa fa-angle-double-right"></i></a>
+
+              <!-- <a id="btn" href="{% url "aav:editarAvion" avionX.id_avion %}" data-title="Actualizar datos" class="btn btn-primary btn-lg  pull-right azul"><i class="fa fa-refresh"></i></a> -->
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class=" col-md-12 col-lg-12 "> 
+              <table class="table table-user-information">
+                <tbody>
+                  <tr class="info">
+                    <td>CLASES DE ASIENTOS </td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+
+                  {% for clase in clases %}
+                  <tr>
+                    <td>Primera {{ clase.tipo_cabina.nombre_cabina }}</td>
+                    <td>{{ clase.cantidad_asientos }} Asientos</td>
+                    <td>{{ clase.conf_columnas }} (Letra)</td>
+                  </tr>
+                  {% endfor %}
+
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+
+    </div>
+  </div>
+
+  <div class="row">
+    <a href="{% url "aav:listaAvion" avionX.linea_aerea.codigo_linea_aerea %}" class="btn btn-danger btn-lg col-md-offset-2"><i class="fa fa-chevron-left" aria-hidden="true"></i> Atrás</a>
+  </div>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <h3 style="text-align:center; font-family:  Times New Roman, sans-serif; color: #1C2331; float: right;"><b></b></h3>
+  </div>
+</div>
+
+    
+</section>
+
+        
+        
+            
+{% endblock %}

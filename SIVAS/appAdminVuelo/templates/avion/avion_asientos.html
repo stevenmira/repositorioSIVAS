@@ -1,0 +1,77 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+{% load staticfiles %}
+
+<section class="content-header">
+  <h1 style="color: #333333; font-family: 'Times New Roman', Times, serif;">
+      Capacidad: {{avionX.capacidad_asientos}} asientos - {{avionX.marca}} - {{avionX.modelo}} <i class="fa fa-plane" ></i>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active"><a href="#"> Aerolineas</a></li>
+    <li class="active"><a href="#"> Aviones</a></li>
+    <li class="active">Detalle</li>
+  </ol>
+</section>
+<br>
+<style type="text/css">
+        a.rojo[data-title]:hover:after, a.azul[data-title]:hover:after {
+          content: attr(data-title);
+          padding: 2px 4px;
+          margin: 10px 0px;
+          color: #fff;
+          left: -50px;
+          font-size: 15px;
+        }
+
+        .btn.active span.fa {                
+            opacity: 1;             
+        }
+
+        .btn{
+          width: 35px;
+        }
+
+        .fondo {
+        background-position:center top;
+        background-repeat:no-repeat;
+        background-image:url({% static 'img/mapa.png' %});
+        width:100%;
+        height: 100%;
+        }
+</style>
+
+
+
+  <section class="fondo">
+      <div class=" well-sm text-center">   
+          <div data-toggle="buttons">             
+              
+              {% for list in lista %}
+
+                  {% if list != 'inicio' and list != 'fin' %}
+                  
+                  
+
+                  <label class="btn btn-xs text-center" style="background: #00695c; color: white;">
+                      <input type="radio" name="options" id="option1" autocomplete="off">
+                      <!-- <span class="fa fa-user"></span> -->
+                      <a href="#" style="color: white;" class="rojo" data-title="{{list.detalle_clase.tipo_cabina.nombre_cabina}}">{{list.fila}} {{list.columna}}</a>
+                  </label>
+                  
+
+
+
+                  {% else %}
+                    <p></p>
+                  {% endif %}
+
+
+              {% endfor %}
+          </div>
+      </div>
+  </section>
+
+
+{% endblock %}
+

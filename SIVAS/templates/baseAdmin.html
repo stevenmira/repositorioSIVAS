@@ -9,6 +9,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap-select.min.css' %}" rel="stylesheet" />
     <!-- Font Awesome -->
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
     <!-- Theme style -->
@@ -23,7 +24,7 @@
     <link href="{% static 'css/estilos-stvn.css' %}" rel="stylesheet" />
 
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
 
       <header class="main-header">
@@ -31,7 +32,7 @@
         <!-- Logo -->
         <a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>SIVAS</b></span>
+          <span class="logo-mini"><b>SI</b></span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>SIVAS</b></span>
         </a>
@@ -186,12 +187,13 @@
         <div class="pull-right hidden-xs">
           <b>Versión</b> 1.0
         </div>
-        <strong>Administrador de Aplicación &copy; <a href="#"> SIAP</a></strong>.  Todos los derechos reservados.
+        <strong>Administrador de Aplicación &copy; <a href="#"> SIVAS</a></strong>.  Todos los derechos reservados.
       </footer>
 
     <!-- Contenido JS -->
     <!-- jQuery 2.1.4 -->
     <script src="{% static 'js/jQuery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
     <!-- Core Scripts - Include with every page -->
       {% block scripts %}
       {% endblock %}
