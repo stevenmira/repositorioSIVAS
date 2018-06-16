@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'appAdminAeropuerto',
     'appAdminVuelo',
     'appCliente',
-    'mathfilters',
+    
 ]
 
 MIDDLEWARE_CLASSES = [
