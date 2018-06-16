@@ -9,6 +9,7 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap-select.min.css' %}" rel="stylesheet" />
     <!-- Font Awesome -->
     <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
     <!-- Theme style -->
@@ -23,7 +24,7 @@
     <link href="{% static 'css/estilos-stvn.css' %}" rel="stylesheet" />
 
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-green sidebar-mini">
     <div class="wrapper">
 
       <header class="main-header">
@@ -31,7 +32,7 @@
         <!-- Logo -->
         <a href="index2.html" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>SIVAS</b></span>
+          <span class="logo-mini"><b>SI</b></span>
           <!-- logo for regular state and mobile devices -->
           <span class="logo-lg"><b>SIVAS</b></span>
         </a>
@@ -91,59 +92,56 @@
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-sort-alpha-asc"></i>
-                <span>Opción 1</span>
+                <span>Línas Áereas</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="almacen/articulo"><i class="fa fa-circle-o"></i> 1</a></li>
-                <li><a href="almacen/categoria"><i class="fa fa-circle-o"></i> 2</a></li>
+                <li><a href="{% url 'aav:linea_list' %}"><i class="fa fa-circle-o"></i> Listado</a></li>
               </ul>
             </li>
             
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-folder-open"></i>
-                <span>Opción 2</span>
+                <i class="fa fa-plane"></i>
+                <span>Gestión de Aviones</span>
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> 1</a></li>
-                <li><a href="compras/proveedor"><i class="fa fa-circle-o"></i> 2</a></li>
-              </ul>
-            </li>
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-file-text"></i>
-                <span>Opción 3</span>
-                 <i class="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="ventas/venta"><i class="fa fa-circle-o"></i> 1</a></li>
-                <li><a href="ventas/cliente"><i class="fa fa-circle-o"></i> 2</a></li>
+                <li><a href="{% url 'aav:avionlinea_list' %}"><i class="fa fa-circle-o"></i> Aviones por aerolinea</a></li>
               </ul>
             </li>
 
             <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-file-text"></i>
-                  <span>Administracion</span>
-                   <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="{% url "aaae:listaPais" %}"><i class="fa fa-circle-o"></i>Paises</a></li>
-                  <li><a href="{% url "aaae:listaCiudad" %}"><i class="fa fa-circle-o"></i>Ciudades</a></li>
-                  <li><a href="{% url "aaae:listaAero" %}"><i class="fa fa-circle-o"></i>Aeropuerto</a></li>
-                </ul>
-              </li>
+              <a href="#">
+                <i class="fa fa-info-circle"></i>
+                <span>Gestión de vuelos</span>
+                 <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{% url 'aav:vuelolinea_list' %}"><i class="fa fa-circle-o"></i> Vuelos por aerolinea</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-list"></i>
+                <span>Gestión de horarios</span>
+                 <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{% url 'aav:horariolinea_list' %}"><i class="fa fa-circle-o"></i> Horarios por aerolinea</a></li>
+              </ul>
+            </li>
 
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-cog"></i> 
-                <span>Ajustes</span>
+                <span>Catalogos</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="configuracion/usuario"><i class="fa fa-circle-o"></i> 1</a></li>
+                <li><a href="{% url 'aav:listaTipoAvion' %}"><i class="fa fa-circle-o"></i> Tipo de avión</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> Tipo de cabina</a></li>
               </ul>
             </li>
 
@@ -199,12 +197,13 @@
         <div class="pull-right hidden-xs">
           <b>Versión</b> 1.0
         </div>
-        <strong>Administrador de Aplicación &copy; <a href="#"> SIAP</a></strong>.  Todos los derechos reservados.
+        <strong>Administrador de Aplicación &copy; <a href="#"> SIVAS</a></strong>.  Todos los derechos reservados.
       </footer>
 
     <!-- Contenido JS -->
     <!-- jQuery 2.1.4 -->
     <script src="{% static 'js/jQuery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
     <!-- Core Scripts - Include with every page -->
       {% block scripts %}
       {% endblock %}
@@ -212,8 +211,6 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <!-- AdminLTE App -->
     <script src="{% static 'js/app.min.js' %}"></script>
-
-    <script src="{% static 'js/modales.js' %}"></script>
     
   </body>
 </html>

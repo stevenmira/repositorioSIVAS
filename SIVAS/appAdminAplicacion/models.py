@@ -4,37 +4,38 @@ from django.db import models
 
 class pais(models.Model):
 	id_pais = models.AutoField(primary_key=True)
-	
+	codigo_pais = models.IntegerField(null=False, blank=False)
 	nombre_pais = models.CharField(max_length=30, null=False, blank=False)
-	cod_iata_pais = models.CharField(max_length=2,null=True,blank=False)
-	creado_en = models.DateTimeField(auto_now_add=True)
+	cod_iata_pais = models.CharField(max_length=2,null=False,blank=False)
+
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
 		db_table = 'pais'
 
 	def __str__(self):
-		return '%s %s %s' % (self.id_pais, self.cod_iata_pais, self.nombre_pais)
+		return '%s %s %s' % (self.id_pais, self.codigo_pais, self.nombre_pais)
 
 class ciudad(models.Model):
 	id_ciudad = models.AutoField(primary_key=True)
 	pais = models.ForeignKey(pais, null=False, db_column='id_pais', on_delete=models.CASCADE)
-	
-	cod_iata_ciudad = models.CharField(max_length=3, null=True, blank=False)
+	codigo_ciudad = models.IntegerField(null=False, blank=False)
+	cod_iata_ciudad = models.CharField(max_length=3,null=False,blank=False)
 	nombre_ciudad = models.CharField(max_length=30, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
 		db_table = 'ciudad'
 
 	def __str__(self):
-		return '%s %s %s' % (self.id_ciudad, self.cod_iata_ciudad, self.nombre_ciudad)
+		return '%s %s %s' % (self.id_ciudad, self.codigo_ciudad, self.nombre_ciudad)
 
 class aeropuerto(models.Model):
 	codigo_aeropuerto = models.CharField(primary_key=True, max_length=10)
@@ -43,9 +44,9 @@ class aeropuerto(models.Model):
 	telefono_aeropuerto = models.CharField(max_length=15, null=False, blank=False)
 	nombre_responsable = models.CharField(max_length=50, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -65,9 +66,9 @@ class linea_aerea(models.Model):
 	direccion_twitter = models.CharField(max_length=30, null=True, blank=True)
 	email_linea_aerea = models.EmailField(max_length=255, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -81,9 +82,9 @@ class detalle_linea_aeropuerto(models.Model):
 	linea_aerea = models.ForeignKey(linea_aerea, null=False, db_column='codigo_linea_aerea', on_delete=models.CASCADE)
 	aeropuerto = models.ForeignKey(aeropuerto, null=False, db_column='codigo_aeropuerto', on_delete=models.CASCADE)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -96,9 +97,9 @@ class tipo_avion(models.Model):
 	id_tipo_avion = models.AutoField(primary_key=True)
 	nombre_tipo_avion = models.CharField(max_length=30, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -109,43 +110,45 @@ class tipo_avion(models.Model):
 
 class avion(models.Model):
 	id_avion = models.AutoField(primary_key=True)
-	linea_aerea = models.ForeignKey(linea_aerea, null=False, db_column='codigo_linea_aerea', on_delete=models.CASCADE)
-	tipo_avion = models.ForeignKey(tipo_avion, null=False, db_column='id_tipo_avion', on_delete=models.CASCADE)
+	linea_aerea = models.ForeignKey(linea_aerea, null=True, blank=True, db_column='codigo_linea_aerea', on_delete=models.CASCADE)
+	tipo_avion = models.ForeignKey(tipo_avion, null=True, blank=True, db_column='id_tipo_avion', on_delete=models.CASCADE)
 	modelo = models.CharField(max_length=30, null=False, blank=False)
 	marca = models.CharField(max_length=20, null=False, blank=False)
 	capacidad_asientos = models.IntegerField(null=False, blank=False)
+	estado_avion = models.CharField(max_length=15, null=True, blank=True)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
 		db_table = 'avion'
 
 	def __str__(self):
-		return '%s %s %s %s' % (self.id_avion, self.modelo, self.marca, self.capacidad_asientos)
+		return '%s %s %s %s %s' % (self.id_avion, self.modelo, self.marca, self.capacidad_asientos, self.estado_avion)
 
 class vuelo(models.Model):
 	codigo_vuelo = models.CharField(primary_key=True, max_length=15)
 	aeropuerto_origen = models.ForeignKey(aeropuerto, null=False, related_name='codigo_aeropuerto_origen', db_column='codigo_aeropuerto_origen', on_delete=models.CASCADE)
 	aeropuerto_destino = models.ForeignKey(aeropuerto, null=False, related_name='codigo_aeropuerto_destino', db_column='codigo_aeropuerto_destino', on_delete=models.CASCADE)
-	avion = models.ForeignKey(avion, null=False, db_column='id_avion', on_delete=models.CASCADE)
+	linea_aerea = models.ForeignKey(linea_aerea, null=False, db_column='codigo_linea_aerea', on_delete=models.CASCADE)
 	costo_viaje = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
 	milla_recorrida = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
 	milla_otorgar = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
-	tiempo_de_vuelo = models.DateTimeField()
+	tiempo_de_vuelo = models.TimeField()
+	estado_vuelo = models.CharField(max_length=15, null=True, blank=True)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
 		db_table = 'vuelo'
 
 	def __str__(self):
-		return '%s %s %s %s %s' % (self.codigo_vuelo, self.costo_viaje, self.milla_recorrida, self.milla_otorgar, self.tiempo_de_vuelo)
+		return '%s %s %s %s %s %s' % (self.codigo_vuelo, self.costo_viaje, self.milla_recorrida, self.milla_otorgar, self.tiempo_de_vuelo, self.estado_vuelo)
 
 class hangar(models.Model):
 	id_hangar = models.AutoField(primary_key=True)
@@ -153,9 +156,9 @@ class hangar(models.Model):
 	codigo_hangar = models.CharField(max_length=10 ,null=False, blank=False)
 	estado_hangar = models.CharField(max_length=15, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -171,7 +174,7 @@ class gateway(models.Model):
 	aeropuerto = models.ForeignKey(aeropuerto, null=False, db_column='codigo_aeropuerto', on_delete=models.CASCADE)
 	creado_en = models.DateTimeField(auto_now_add=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -189,9 +192,9 @@ class horario(models.Model):
 	hora_llegada = models.DateTimeField(null=False, blank=False)
 	fecha_registro = models.DateField(null=True, blank=True)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -204,9 +207,9 @@ class tipo_cabina(models.Model):
 	id_tipo_cabina = models.AutoField(primary_key=True)
 	nombre_cabina = models.CharField(max_length=30, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -215,34 +218,54 @@ class tipo_cabina(models.Model):
 	def __str__(self):
 		return '%s %s' % (self.id_tipo_cabina, self.nombre_cabina)
 
-class asiento(models.Model):
-	id_asiento = models.AutoField(primary_key=True)
+class detalle_clase(models.Model):
+	id_detalle_clase = models.AutoField(primary_key=True)
 	avion = models.ForeignKey(avion, null=False, db_column='id_avion', on_delete=models.CASCADE)
 	tipo_cabina = models.ForeignKey(tipo_cabina, null=False, db_column='id_tipo_cabina', on_delete=models.CASCADE)
-	fila = models.CharField(max_length=1, null=True, blank=True)
-	letra = models.CharField(max_length=1, null=True, blank=True)
+	cantidad_asientos = models.IntegerField(null=False, blank=False)
+	stock = models.IntegerField(null=True, blank=True)
+	conf_columnas = models.CharField(max_length=10 ,null=True, blank=True)
+	conf_filas  = models.DecimalField(max_digits=3, decimal_places=0, null=True, blank=True)
+	estado_clase = models.CharField(max_length=15, null=True, blank=True)
+
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
+	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
+
+	class Meta:
+		db_table = 'detalle_clase'
+
+	def __str__(self):
+		return '%s %s %s %s %s %s' % (self.id_detalle_clase, self.cantidad_asientos, self.stock, self.conf_columnas, self.conf_filas, self.estado_clase)
+
+class asiento(models.Model):
+	id_asiento = models.AutoField(primary_key=True)
+	detalle_clase = models.ForeignKey(detalle_clase, null=True, db_column='id_detalle_clase', on_delete=models.CASCADE)
+	fila = models.DecimalField(max_digits=3, decimal_places=0, null=True, blank=True)
+	columna = models.CharField(max_length=10 ,null=True, blank=True)
 	estado_asiento = models.CharField(max_length=15, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
 		db_table = 'asiento'
 
 	def __str__(self):
-		return '%s %s %s %s' % (self.id_asiento, self.fila, self.letra, self.estado_asiento)
+		return '%s %s %s' % (self.fila, self.columna, self.estado_asiento)
 
 class tarifa(models.Model):
 	id_tarifa = models.AutoField(primary_key=True)
-	tipo_cabina = models.ForeignKey(tipo_cabina, null=False, db_column='id_tipo_cabina', on_delete=models.CASCADE)
+	detalle_clase = models.ForeignKey(detalle_clase, null=True, db_column='id_detalle_clase', on_delete=models.CASCADE)
 	vuelo = models.ForeignKey(vuelo, null=False, db_column='codigo_vuelo', on_delete=models.CASCADE)
 	precio = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -251,15 +274,31 @@ class tarifa(models.Model):
 	def __str__(self):
 		return '%s %s' % (self.id_tarifa, self.precio)
 
+class tipo_reserva(models.Model):
+	id_tipo_reserva = models.AutoField(primary_key=True)
+	nombre_reserva = models.CharField(max_length=30, null=False, blank=False)
+
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
+	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
+
+	class Meta:
+		db_table = 'tipo_reserva'
+
+	def __str__(self):
+		return '%s %s' % (self.id_tipo_reserva, self.nombre_reserva)
+
 class reservacion(models.Model):
 	codigo_reservacion = models.CharField(primary_key=True, max_length=15)
+	tipo_reserva = models.ForeignKey(tipo_reserva, null=False, db_column='id_tipo_reserva', on_delete=models.CASCADE)
 	fecha_salida = models.DateTimeField(null=False, blank=False)
 	fecha_regreso = models.DateTimeField()
 	numero_maletas = models.IntegerField()
 	
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -270,12 +309,15 @@ class reservacion(models.Model):
 
 class itinerario(models.Model):
 	id_itinerario = models.AutoField(primary_key=True)
-	reservacion = models.ForeignKey(reservacion, null=False, db_column='codigo_reservacion', on_delete=models.CASCADE)
-	vuelo = models.ForeignKey(vuelo, null=False, db_column='codigo_vuelo', on_delete=models.CASCADE)
+	aeropuert_origen = models.ForeignKey(aeropuerto, null=False, related_name='codigo_aeropuert_origen', db_column='codigo_aeropuert_origen', on_delete=models.CASCADE)
+	aeropuert_destino = models.ForeignKey(aeropuerto, null=False, related_name='codigo_aeropuert_destino', db_column='codigo_aeropuert_destino', on_delete=models.CASCADE)
+	fecha_itinerario = models.DateTimeField()
+	monto_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+	estado_itinerario = models.CharField(max_length=15)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -284,13 +326,50 @@ class itinerario(models.Model):
 	def __str__(self):
 		return '%s' % (self.id_itinerario)
 
+class detalle_itinerario(models.Model):
+	id_detalle_itinerario = models.AutoField(primary_key=True)
+	fecha_det_iti = models.DateField()
+	vuelo = models.ForeignKey(vuelo, null=True, db_column='codigo_vuelo', on_delete=models.CASCADE)
+	horario = models.ForeignKey(horario, null=False, db_column='id_horario', on_delete=models.CASCADE)
+	avion = models.ForeignKey(avion, null=False, db_column='id_avion', on_delete=models.CASCADE)
+	itinerario = models.ForeignKey(itinerario, null=False, db_column='id_itinerario', on_delete=models.CASCADE)
+
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
+	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
+
+	class Meta:
+		db_table = 'detalle_itinerario'
+
+	def __str__(self):
+		return '%s' % (self.id_detalle_itinerario)
+
+class detalle_viaje(models.Model):
+	id_detalle_viaje = models.AutoField(primary_key=True)
+	itinerario = models.ForeignKey(itinerario, null=False, db_column='id_itinerario', on_delete=models.CASCADE)
+	reservacion = models.ForeignKey(reservacion, null=False, db_column='codigo_reservacion', on_delete=models.CASCADE)
+	fecha_viaje = models.DateTimeField(null=False)
+	bin_tipo = models.CharField(max_length=6, null= False, blank= False)
+
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
+	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
+
+	class Meta:
+		db_table = 'detalle_viaje'
+
+	def __str__(self):
+		return '%s' % (self.id_detalle_viaje)
+
 class genero(models.Model):
 	id_genero = models.AutoField(primary_key=True)
 	nombre_genero = models.CharField(max_length=1, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -303,9 +382,9 @@ class tipo_documento(models.Model):
 	id_tipo_documento = models.AutoField(primary_key=True)
 	nombre_tipo_documento = models.CharField(max_length=20, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -318,9 +397,9 @@ class estado_civil(models.Model):
 	id_estado_civil = models.AutoField(primary_key=True)
 	nombre_estado = models.CharField(max_length=15, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -336,9 +415,9 @@ class cliente_natural(models.Model):
 	estado_civil = models.ForeignKey(estado_civil, null=False, db_column='id_estado_civil', on_delete=models.CASCADE)
 	fecha_nacimiento = models.DateField(null=True, blank=True)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -353,9 +432,9 @@ class cliente_empresa(models.Model):
 	nic_empresa = models.CharField(max_length=20, null=True, blank=True)
 	nombre_contacto = models.CharField(max_length=50, null=True, blank=True)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -377,9 +456,9 @@ class pasajero(models.Model):
 	telefono_movil = models.CharField(max_length=15, null=True, blank=True)
 	email_pasajero = models.EmailField(max_length=255, null=True, blank=True)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -393,9 +472,9 @@ class detalle_reservacion(models.Model):
 	numero_viajero = models.ForeignKey(pasajero, null=False, db_column='numero_viajero')
 	codigo_reservacion = models.ForeignKey(reservacion, null=False, db_column='codigo_reservacion')
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -415,9 +494,9 @@ class cliente_adicional(models.Model):
 	segundo_apellido_adicional = models.CharField(max_length=20, null=True, blank=True)
 	fecha_nacimiento_adicional = models.DateField()
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -431,9 +510,9 @@ class equipaje(models.Model):
 	detalle_reservacion = models.ForeignKey(detalle_reservacion, null=False, db_column='id_detalle_reservacion')
 	peso = models.DecimalField(max_digits=10, decimal_places=2, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -446,9 +525,9 @@ class tipo_tarjeta(models.Model):
 	id_tipo_tarjeta = models.AutoField(primary_key=True)
 	nombre_tarjeta = models.CharField(max_length=30, null=False, blank=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -465,9 +544,9 @@ class tarjeta(models.Model):
 	nombre_tarjeta = models.CharField(max_length=35, null=True, blank=True)
 	vencimiento = models.DateField()
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
@@ -484,9 +563,9 @@ class pago(models.Model):
 	fecha_pago = models.DateField(null=False, blank=True)
 	estado_pago = models.CharField(max_length=15, null=False)
 
-	creado_en = models.DateTimeField(auto_now_add=True)
+	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
-	actualizado_en = models.DateTimeField(auto_now=True)
+	actualizado_en = models.DateTimeField(auto_now=True, null=True, blank=True)
 	actualizado_por = models.EmailField(verbose_name='Updated By', max_length=255, null=True, blank=True)
 
 	class Meta:
