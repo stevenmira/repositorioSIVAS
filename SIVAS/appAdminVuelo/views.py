@@ -1,19 +1,69 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from appAdminVuelo.forms2 import *
+from appAdminVuelo.forms import *
 from appAdminAplicacion.models import *
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse_lazy
 from django.template import  RequestContext
+from django.http import Http404
+from django.views.generic import DeleteView, ListView, DetailView
 import math
 
 from django.views.generic.edit import (
     CreateView,
     UpdateView,
     DeleteView
-
 )
-# Create your views here.
 
+class linea_list(ListView):
+    model = linea_aerea
+    template_name = "lineaAerea/linea_list.html"
+    paginate_by = 10
+
+
+def lineaCreate(request):
+    if request.method == 'POST':
+        form = LineaForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return redirect('aav:linea_list')
+    else:
+        form = LineaForm()
+        return render(request, 'lineaAerea/linea_create.html', {'form': form})
+
+
+def lineaUpdate(request, id_linea):
+    linea = linea_aerea.objects.get(codigo_linea_aerea=id_linea)
+    if request.method == 'GET':
+        form = LineaForm(instance=linea)
+    else:
+        form = LineaForm(request.POST, instance=linea)
+        if form.is_valid():
+            form.save()
+        return redirect('aav:linea_list')
+    return render(request, 'lineaAerea/linea_create.html', {'form': form})
+
+class lineaDelete(DeleteView):
+    model = linea_aerea
+    template_name = "lineaAerea/linea_delete.html"
+    success_url = reverse_lazy('aav:linea_list')
+
+
+def lineaDetail(request, pk):
+    try:
+        linea_id = linea_aerea.objects.get(codigo_linea_aerea=pk)
+    except linea_aerea.DoesNotExist:
+        raise Http404("Linea Aerea does not exist")
+
+    # book_id=get_object_or_404(Book, pk=pk)
+
+    return render(
+        request,
+        'lineaAerea/linea_detail.html',
+        context={'linea': linea_id, }
+    )
+
+
+# Create your views here.
 
 class TipoAvionList(ListView):
     model = tipo_avion
@@ -31,6 +81,11 @@ class TipoAvionUpdate(UpdateView):
     success_url = reverse_lazy('aav:listaTipoAvion')
     template_name ="tipoAvion/tipoAvion_form.html"
     form_class = TipoAvionForm
+
+class avion_linea_list(ListView):
+    model = linea_aerea
+    template_name = "avion/linea_list.html"
+    paginate_by = 10
 
 def AvionList(request, pk):
     lineaAerea = linea_aerea.objects.get(codigo_linea_aerea = pk)
@@ -199,6 +254,11 @@ def AvionCabinas(request, pk):
 
     return render(request, 'avion/avion_asientos.html', {'lista':lista, 'detalle_clases':detalle_clases, 'avionX':avionX})
 
+class vuelo_linea_list(ListView):
+    model = linea_aerea
+    template_name = "vuelo/linea_list.html"
+    paginate_by = 10
+
 
 def VueloList(request, pk):
     lineaAerea = linea_aerea.objects.get(codigo_linea_aerea = pk)
@@ -279,6 +339,11 @@ def VueloEdit(request, pk):
     return render(request, 'vuelo/vuelo_edit_form.html',{'form':form,'aeropuertos':aeropuertos, 'codigo_linea_a':codigo_linea_a,
         'lineas':lineas, 'lineaAerea':lineaAerea}, context_instance = RequestContext(request))
 
+
+class horario_linea_list(ListView):
+    model = linea_aerea
+    template_name = "horario/linea_list.html"
+    paginate_by = 10
 
 def HorarioList(request, pk):
     lineaAerea = linea_aerea.objects.get(codigo_linea_aerea = pk)

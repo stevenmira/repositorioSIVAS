@@ -92,46 +92,56 @@
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-sort-alpha-asc"></i>
-                <span>Opción 1</span>
+                <span>Línas Áereas</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="almacen/articulo"><i class="fa fa-circle-o"></i> 1</a></li>
-                <li><a href="almacen/categoria"><i class="fa fa-circle-o"></i> 2</a></li>
+                <li><a href="{% url 'aav:linea_list' %}"><i class="fa fa-circle-o"></i> Listado</a></li>
               </ul>
             </li>
             
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-folder-open"></i>
-                <span>Opción 2</span>
+                <i class="fa fa-plane"></i>
+                <span>Gestión de Aviones</span>
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="#"><i class="fa fa-circle-o"></i> 1</a></li>
-                <li><a href="compras/proveedor"><i class="fa fa-circle-o"></i> 2</a></li>
+                <li><a href="{% url 'aav:avionlinea_list' %}"><i class="fa fa-circle-o"></i> Aviones por aerolinea</a></li>
               </ul>
             </li>
+
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-file-text"></i>
-                <span>Opción 3</span>
+                <i class="fa fa-info-circle"></i>
+                <span>Gestión de vuelos</span>
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="ventas/venta"><i class="fa fa-circle-o"></i> 1</a></li>
-                <li><a href="ventas/cliente"><i class="fa fa-circle-o"></i> 2</a></li>
+                <li><a href="{% url 'aav:vuelolinea_list' %}"><i class="fa fa-circle-o"></i> Vuelos por aerolinea</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-list"></i>
+                <span>Gestión de horarios</span>
+                 <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{% url 'aav:horariolinea_list' %}"><i class="fa fa-circle-o"></i> Horarios por aerolinea</a></li>
               </ul>
             </li>
 
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-cog"></i> 
-                <span>Ajustes</span>
+                <span>Catalogos</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li><a href="configuracion/usuario"><i class="fa fa-circle-o"></i> 1</a></li>
+                <li><a href="{% url 'aav:listaTipoAvion' %}"><i class="fa fa-circle-o"></i> Tipo de avión</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> Tipo de cabina</a></li>
               </ul>
             </li>
 
