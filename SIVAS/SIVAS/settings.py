@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'appAdminAeropuerto',
     'appAdminVuelo',
     'appCliente',
+    'mathfilters',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -86,7 +87,7 @@ DATABASES = {
        'USER': 'postgres', 
         'PASSWORD': 'admin', 
         'HOST': 'localhost', 
-        'PORT': 5432, 
+        'PORT': '5432', 
     } 
 }
 
