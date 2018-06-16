@@ -50,3 +50,19 @@ class CiudadForm(forms.ModelForm):
             'cod_iata_ciudad':forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Codigo IATA de la ciudad','autofocus':'True','required':'True','maxlenght':'3'}),
             'nombre_ciudad':forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el nombre de la Ciudad','autofocus':'true','required':'true','maxlenght':'30'}),
         }
+
+class GatewayForm(forms.ModelForm):
+    class Meta:
+        model = gateway
+        exclude = ()
+        field = [
+            'codigo_gateway',
+            'estado_gateway',
+            'aeropuerto',
+        ]
+        widgets = {
+            'codigo_gateway':forms.TextInput(attrs={'class':'form-control','placehorlder':'Escriba el codigo del Gateway','autofocus':'True','required':'True','maxlenght':'10'}),
+            'estado_gateway':forms.TextInput(attrs={'class':'form-control','placehorlder':'Escriba el Estado del Gateway','autofocus':'True','required':'True','maxlenght':'15'}),
+            'aeropuerto':forms.Select(attrs={'class':'form-control'}),
+
+        }

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.core.urlresolvers import reverse_lazy
 from appAdminAeropuerto.forms import *
 from appAdminAplicacion.models import *
+from django.http import HttpResponseRedirect
 
 
 from django.views.generic.list import ListView
@@ -21,10 +22,13 @@ def aeropuerto_create(request):
 
     if request.method == 'POST':
         form = AeropuertoForm(request.POST)
+        
         if form.is_valid():
             num = aeropuerto.objects.filter(ciudad = form.cleaned_data['ciudad'])
             count = len(num)
             codigo = form.cleaned_data['ciudad']
+            numero = int(request.POST.get('hangar'))
+            gate = int(request.POST.get('gt'))
             if count == 0:
 
 
@@ -35,7 +39,26 @@ def aeropuerto_create(request):
                     nombre_responsable = form.cleaned_data['nombre_responsable'],
                     codigo_aeropuerto = codigo.cod_iata_ciudad+str(count+1))
                 aerox.save()
-                return redirect('aaae:listaPais')
+
+
+                for i in range(numero):
+                    hangarx = hangar(
+                        aeropuerto = aerox,
+                        codigo_hangar = i+1,
+                        estado_hangar = "DISPONIBLE",
+                    )
+                    hangarx.save()
+
+                for i in range(gate):
+                    gatex = gateway(
+                        codigo_gateway = i+1,
+                        estado_gateway = "DISPONIBLE",
+                        aeropuerto = aerox, 
+                    )
+                    gatex.save()
+
+                return redirect('aaae:listaAero')
+
 
             else:
                 aerox = aeropuerto(
@@ -45,11 +68,29 @@ def aeropuerto_create(request):
                     nombre_responsable = form.cleaned_data['nombre_responsable'],
                     codigo_aeropuerto = codigo.cod_iata_ciudad+str(count+1))
                 aerox.save()
-                return redirect('aaae:listaPais')
+
+                for i in range(numero):
+                    hangarx = hangar(
+                        aeropuerto = aerox,
+                        codigo_hangar = i+1,
+                        estado_hangar = "DISPONIBLE",
+                    )
+                    hangarx.save()
+                
+                for i in range(gate):
+                    gatex = gateway(
+                        codigo_gateway = i+1,
+                        estado_gateway = "DISPONIBLE",
+                        aeropuerto = aerox, 
+                    )
+                    gatex.save()
+
+                return redirect('aaae:listaAero')
         else:
             return render(request, 'aero/aeropuertoCreate.html', {'form':form})
     else:
         form = AeropuertoForm()
+        
     return render(request, 'aero/aeropuertoCreate.html', {'form':form})
 
 
@@ -137,10 +178,26 @@ class CiudadDelete(DeleteView):
     template_name = "ciudad/ciudadDelete.html"
     success_url = reverse_lazy('aaae:listaCiudad')
 
-'''
-class ciudad_create(CreateView):
-    model = ciudad
-    form_class = CiudadForm
-    template_name = "ciudad/ciudadCreate.html"
-    success_url = reverse_lazy('aaae:listaPais')
-'''
+def GatewayList(request,pk):
+    aero = aeropuerto.objects.get(codigo_aeropuerto = pk)
+    lista = gateway.objects.filter(aeropuerto = aero).order_by('id_gateway')
+    return render(request,'gateway/listaGateway.html',{'gateways':lista, 'aeropuerto':aero})
+
+class GatewayUpdate(UpdateView):
+    model = gateway
+    form_class = GatewayForm
+    template_name = "gateway/gatewayUpdate.html"
+    success_url = reverse_lazy('aaae:listaAero')
+
+class GatewayCreate(CreateView):
+    model = gateway
+    form_class = GatewayForm
+    template_name = "gateway/gatewayCreate.html"
+    success_url = reverse_lazy('aaae:listaAero')
+
+class GatewayDelete(DeleteView):
+    model = gateway
+    template_name = "gateway/gatewayDelete.html"
+    success_url = reverse_lazy('aaae:listaAero')
+
+    

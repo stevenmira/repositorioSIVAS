@@ -5,7 +5,7 @@
 
 
 <div class="col-md-12 col-md-offset-0">
-        <legend class="the-legend"><h1 style="text-align: center;">Listado de Aeropuertos</h1></legend>
+        <legend class="the-legend"><h1 style="text-align: center;">Opciones Extras</h1></legend>
     </div>
 
 
@@ -34,14 +34,14 @@
                     <td>{{aeropuerto.telefono_aeropuerto}}</td>
                     
                     <td>
-                        <a class="btn btn-warning" href="{% url "aaae:listaGateway" aeropuerto.codigo_aeropuerto %}">Gateways</a>
+                        <a class="btn btn-warning" href="#">Ver Mas</a>
                         <a class="btn btn-info" href="{% url "aaae:aeropuertoEditar" aeropuerto.codigo_aeropuerto %}">Editar</a>
                         <a class="btn btn-danger" href="{% url "aaae:aeropuertoEliminar" aeropuerto.codigo_aeropuerto %}">Eliminar</a>
                     </td>
                 </tr>
                 {% endfor %}
                 {% else %}
-                <h3>No hay Aeropuertos registrados</h3>
+                <h3>No hay paises registrados</h3>
                 {% endif %}
             </table>
 

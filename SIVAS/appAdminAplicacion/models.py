@@ -166,10 +166,9 @@ class hangar(models.Model):
 
 class gateway(models.Model):
 	id_gateway = models.AutoField(primary_key=True)
-	hangar = models.ForeignKey(hangar, null=False, db_column='id_hangar', on_delete=models.CASCADE)
 	codigo_gateway = models.CharField(max_length=10 ,null=False, blank=False)
 	estado_gateway = models.CharField(max_length=15, null=False, blank=False)
-
+	aeropuerto = models.ForeignKey(aeropuerto, null=False, db_column='codigo_aeropuerto', on_delete=models.CASCADE)
 	creado_en = models.DateTimeField(auto_now_add=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)
 	actualizado_en = models.DateTimeField(auto_now=True)
