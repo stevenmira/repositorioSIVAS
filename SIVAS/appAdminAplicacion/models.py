@@ -4,7 +4,6 @@ from django.db import models
 
 class pais(models.Model):
 	id_pais = models.AutoField(primary_key=True)
-	codigo_pais = models.IntegerField(null=False, blank=False)
 	nombre_pais = models.CharField(max_length=30, null=False, blank=False)
 	cod_iata_pais = models.CharField(max_length=2,null=False,blank=False)
 
@@ -22,7 +21,6 @@ class pais(models.Model):
 class ciudad(models.Model):
 	id_ciudad = models.AutoField(primary_key=True)
 	pais = models.ForeignKey(pais, null=False, db_column='id_pais', on_delete=models.CASCADE)
-	codigo_ciudad = models.IntegerField(null=False, blank=False)
 	cod_iata_ciudad = models.CharField(max_length=3,null=False,blank=False)
 	nombre_ciudad = models.CharField(max_length=30, null=False, blank=False)
 

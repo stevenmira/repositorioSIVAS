@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     #url(r'^',include("appCliente.urls", namespace='ac')),
     #url(r'^',include("appAdminAplicacion.urls", namespace='aaap')),
-    url(r'^',include("appAdminVuelo.urls", namespace='aav')),
+    #url(r'^',include("appAdminVuelo.urls", namespace='aav')),z
+    url(r'^',include("appAdminAeropuerto.urls", namespace='aaae')),
 ]

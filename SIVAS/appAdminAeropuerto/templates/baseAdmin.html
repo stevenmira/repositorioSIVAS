@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sistema de admin de Aplicación</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.5 -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap-select.min.css' %}" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
+    <!-- Theme style -->
+    <link href="{% static 'css/AdminLTE.min.css' %}" rel="stylesheet" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="{% static 'css/_all-skins.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon" />
+    <link href="{% static 'img/favicon.ico' %}" rel="shortcut icon" />
+
+    <!-- Mis Estilos -->
+    <link href="{% static 'css/estilos-stvn.css' %}" rel="stylesheet" />
+
+  </head>
+  <body class="hold-transition skin-green sidebar-mini">
+    <div class="wrapper">
+
+      <header class="main-header">
+
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+          <!-- mini logo for sidebar mini 50x50 pixels -->
+          <span class="logo-mini"><b>SI</b></span>
+          <!-- logo for regular state and mobile devices -->
+          <span class="logo-lg"><b>SIVAS</b></span>
+        </a>
+
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Navegación</span>
+          </a>
+          <!-- Navbar Right Menu -->
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- Messages: style can be found in dropdown.less-->
+              
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <small class="bg-red">Online</small>
+                  <span class="hidden-xs">USUARIO</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    
+                    <p>
+                       Desarrollando Software
+                      <small></small>
+                    </p>
+                  </li>
+                  
+                  <!-- Menu Footer-->
+                  <li class="user-footer">2
+                    
+                    <div class="pull-right">
+                      <a href="#" class="btn btn-default btn-flat">Cerrar</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              
+            </ul>
+          </div>
+
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+                    
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header"></li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-sort-alpha-asc"></i>
+                <span>Línas Áereas</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{% url 'aav:linea_list' %}"><i class="fa fa-circle-o"></i> Listado</a></li>
+              </ul>
+            </li>
+            
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-plane"></i>
+                <span>Gestión de Aviones</span>
+                 <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{% url 'aav:avionlinea_list' %}"><i class="fa fa-circle-o"></i> Aviones por aerolinea</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-info-circle"></i>
+                <span>Gestión de vuelos</span>
+                 <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{% url 'aav:vuelolinea_list' %}"><i class="fa fa-circle-o"></i> Vuelos por aerolinea</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-list"></i>
+                <span>Gestión de horarios</span>
+                 <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{% url 'aav:horariolinea_list' %}"><i class="fa fa-circle-o"></i> Horarios por aerolinea</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-cog"></i> 
+                <span>Catalogos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{% url 'aav:listaTipoAvion' %}"><i class="fa fa-circle-o"></i> Tipo de avión</a></li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> Tipo de cabina</a></li>
+              </ul>
+            </li>
+
+             <li>
+              <a href="#">
+                <i class="fa fa-plus-square"></i> 
+                <span>Ayuda</span>
+                <small class="label pull-right bg-red">PDF</small>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-info-circle"></i> <span>Acerca De...</span>
+                <small class="label pull-right bg-yellow">IT</small>
+              </a>
+            </li>
+                        
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+
+
+
+
+       <!--Contenido-->
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Main content -->
+        <section class="content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                	<div class="row">
+                  	<div class="col-md-12">
+	                          <!--Contenido-->
+                            {% block contenido %}
+                            {% endblock %}
+                        <!--Fin Contenido-->
+                    </div>
+                  </div>    
+                </div>
+              </div><!-- /.row -->
+            </div><!-- /.box-body -->
+          </div><!-- /.box -->
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+      <!--Fin-Contenido-->
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 1.0
+        </div>
+        <strong>Administrador de Aplicación &copy; <a href="#"> SIVAS</a></strong>.  Todos los derechos reservados.
+      </footer>
+
+    <!-- Contenido JS -->
+    <!-- jQuery 2.1.4 -->
+    <script src="{% static 'js/jQuery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+    <!-- Core Scripts - Include with every page -->
+      {% block scripts %}
+      {% endblock %}
+    <!-- Bootstrap 3.3.5 -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'js/app.min.js' %}"></script>
+    
+  </body>
+</html>
