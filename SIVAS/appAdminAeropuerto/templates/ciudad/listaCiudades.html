@@ -1,0 +1,63 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+
+
+
+
+<div class="col-md-12 col-md-offset-0">
+        <legend class="the-legend"><h1 style="text-align: center;">Listado de Ciudades</h1></legend>
+    </div>
+
+
+<div class="row">
+    <span><p><a href="{% url "aaae:nuevaCiudad" %}"><button class="btn btn-success"><i class="fa fa-fw -square -circle fa-plus-square"></i> Agregar Ciudad</button></a></p>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr class="success">
+                    <th>Ciudad</th>
+                    <th>Codigo IATA</th>
+                    <th>Pais</th>
+                    <th style="width: 250px;">Acciones</th>
+                </tr>
+
+                {% if object_list %}
+                {% for ciudad in object_list %}
+
+                <tr>
+                    <td>{{ciudad.nombre_ciudad}}</td>
+                    <td>{{ciudad.cod_iata_ciudad}}</td>
+                    <td>{{ciudad.pais}}</td>
+                    <td>
+                        <a class="btn btn-info" href="{% url "aaae:ciudadEditar" ciudad.id_ciudad %}">Editar</a>
+                        <a class="btn btn-danger" href="{% url "aaae:ciudadEliminar" ciudad.id_ciudad %}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <h3>No hay paises registrados</h3>
+                {% endif %}
+            </table>
+
+            <ul class="pager">
+                <li>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+                </li>
+                <li>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                {% endif %}
+                </li>
+            </ul>
+        </div>
+    
+        <div id="popup" class="modal fade" role="dialog">
+            
+        </div>
+    
+  
+</div>
+
+
+{% endblock %}

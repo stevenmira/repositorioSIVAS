@@ -4,7 +4,7 @@ from django.db import models
 
 class pais(models.Model):
 	id_pais = models.AutoField(primary_key=True)
-	codigo_pais = models.IntegerField(null=False, blank=False)
+	
 	nombre_pais = models.CharField(max_length=30, null=False, blank=False)
 	cod_iata_pais = models.CharField(max_length=2,null=False,blank=False)
 
@@ -17,12 +17,12 @@ class pais(models.Model):
 		db_table = 'pais'
 
 	def __str__(self):
-		return '%s %s %s' % (self.id_pais, self.codigo_pais, self.nombre_pais)
+		return '%s %s %s' % (self.id_pais,  self.cod_iata_pais, self.nombre_pais)
 
 class ciudad(models.Model):
 	id_ciudad = models.AutoField(primary_key=True)
 	pais = models.ForeignKey(pais, null=False, db_column='id_pais', on_delete=models.CASCADE)
-	codigo_ciudad = models.IntegerField(null=False, blank=False)
+	
 	cod_iata_ciudad = models.CharField(max_length=3,null=False,blank=False)
 	nombre_ciudad = models.CharField(max_length=30, null=False, blank=False)
 
@@ -35,7 +35,7 @@ class ciudad(models.Model):
 		db_table = 'ciudad'
 
 	def __str__(self):
-		return '%s %s %s' % (self.id_ciudad, self.codigo_ciudad, self.nombre_ciudad)
+		return '%s %s %s' % (self.id_ciudad, self.cod_iata_ciudad, self.nombre_ciudad)
 
 class aeropuerto(models.Model):
 	codigo_aeropuerto = models.CharField(primary_key=True, max_length=10)
