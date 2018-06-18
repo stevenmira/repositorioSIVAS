@@ -6237,3 +6237,10 @@ SIVAS/appAdminVuelo/migrations/__pycache__/__init__.cpython-35.pyc
 SIVAS/appAdminVuelo/__pycache__/admin.cpython-35.pyc
 *.pyc
 *.pyc
+*.pyc
+*.pyc
+SIVAS/appAdminAeropuerto/migrations/__pycache__/__init__.cpython-35.pyc
+SIVAS/appAdminAeropuerto/__pycache__/forms.cpython-35.pyc
+SIVAS/appAdminAplicacion/migrations/0001_initial.py
+SIVAS/appAdminAplicacion/__pycache__/models.cpython-35.pyc
+SIVAS/SIVAS/__pycache__/wsgi.cpython-35.pyc

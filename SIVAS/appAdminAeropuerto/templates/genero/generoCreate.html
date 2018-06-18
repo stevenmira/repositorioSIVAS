@@ -1,0 +1,31 @@
+{% extends "baseADmin.html" %}
+{% block contenido %}
+
+{{form.errors}}
+
+<form method="post">
+{% csrf_token  %}
+
+<div class="col-md-12 col-md-offset-0">
+        <legend class="the-legend"><h1 style="text-align: center;">Agregar un Género</h1></legend>
+</div>
+
+
+<div class="row">
+   
+        <div class="col-md-12">
+                    <div class="form-group col-md-3">
+                        <label for="">Género</label>
+                        {{form.nombre_genero}}
+                    </div>                  
+        </div>
+</div>
+
+<div class="row">
+    <div class="form-group col-md-11">
+<button class="btn btn-primary pull-right" type="submit">Guardar</button>
+<a class="btn btn-warning col-md-offset-1 pull-left" href="{% url "aaae:listaGenero" %}">Regresar</a>
+</div>
+</div>
+</form>
+{% endblock %}

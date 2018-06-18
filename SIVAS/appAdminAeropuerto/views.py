@@ -178,6 +178,116 @@ class CiudadDelete(DeleteView):
     template_name = "ciudad/ciudadDelete.html"
     success_url = reverse_lazy('aaae:listaCiudad')
 
+
+########################
+####CRUD EstadoCivil####
+########################
+class lista_estado(ListView):
+    model = estado_civil
+    template_name = "estadoCivil/listaEstadoCivil.html"
+    paginate_by = 10
+
+def estado_create(request):
+    if request.method == 'POST':
+        form = EstadoCivilForm(request.POST)
+        if  form.is_valid():
+            estadox = estado_civil(
+                nombre_estado = form.cleaned_data['nombre_estado'],
+            )
+            estadox.save()
+            return redirect('aaae:listaEstado')
+        else:
+             return render(request,'estadoCivil/estadoCreate.html',{'form':form})
+    else:
+        form = EstadoCivilForm
+    return render(request,'estadoCivil/estadoCreate.html',{'form':form})
+
+class EstadoUpdate(UpdateView):
+    model = estado_civil
+    form_class = EstadoCivilForm
+    template_name = "estadoCivil/estadoUpdate.html"
+    success_url = reverse_lazy('aaae:listaEstado')
+
+class EstadoDelete(DeleteView):
+    model = estado_civil
+    template_name = "estadoCivil/estadoDelete.html"
+    success_url = reverse_lazy('aaae:listaEstado')
+
+###################
+####CRUD Genero####
+###################
+class GeneroList(ListView):
+    model = genero
+    template_name = "genero/listaGenero.html"
+    paginate_by = 10
+
+def genero_create(request):
+    if request.method == 'POST':
+        form = GeneroForm(request.POST)
+        if  form.is_valid():
+            estadox = genero(
+                nombre_genero = form.cleaned_data['nombre_genero'],
+            )
+            estadox.save()
+            return redirect('aaae:listaGenero')
+        else:
+             return render(request,'genero/generoCreate.html',{'form':form})
+    else:
+        form = GeneroForm
+    return render(request,'genero/generoCreate.html',{'form':form})
+
+class GeneroUpdate(UpdateView):
+    model = genero
+    form_class = GeneroForm
+    template_name = "genero/generoUpdate.html"
+    success_url = reverse_lazy('aaae:listaGenero')
+
+class GeneroDelete(DeleteView):
+    model = genero
+    template_name = "genero/generoDelete.html"
+    success_url = reverse_lazy('aaae:listaGenero')
+
+###########################
+####CRUD Tipo Documento####
+###########################
+class TipoList(ListView):
+    model = tipo_documento
+    template_name = "tipoDocumento/listaTipoDocumento.html"
+    paginate_by = 10
+
+def tipo_create(request):
+    if request.method == 'POST':
+        form = TipoForm(request.POST)
+        if  form.is_valid():
+            estadox = tipo_documento(
+                nombre_tipo_documento = form.cleaned_data['nombre_tipo_documento'],
+            )
+            estadox.save()
+            return redirect('aaae:listaTipo')
+        else:
+             return render(request,'tipoDocumento/tipoDocumentoCreate.html',{'form':form})
+    else:
+        form = TipoForm
+    return render(request,'tipoDocumento/tipoDocumentoCreate.html',{'form':form})
+
+class TipoUpdate(UpdateView):
+    model = tipo_documento
+    form_class = TipoForm
+    template_name = "tipoDocumento/tipoDocumentoUpdate.html"
+    success_url = reverse_lazy('aaae:listaTipo')
+
+class TipoDelete(DeleteView):
+    model = tipo_documento
+    template_name = "tipoDocumento/tipoDocumentoDelete.html"
+    success_url = reverse_lazy('aaae:listaTipo')
+
+'''
+class ciudad_create(CreateView):
+    model = ciudad
+    form_class = CiudadForm
+    template_name = "ciudad/ciudadCreate.html"
+    success_url = reverse_lazy('aaae:listaPais')
+'''
 def GatewayList(request,pk):
     aero = aeropuerto.objects.get(codigo_aeropuerto = pk)
     lista = gateway.objects.filter(aeropuerto = aero).order_by('id_gateway')
@@ -199,5 +309,3 @@ class GatewayDelete(DeleteView):
     model = gateway
     template_name = "gateway/gatewayDelete.html"
     success_url = reverse_lazy('aaae:listaAero')
-
-    
