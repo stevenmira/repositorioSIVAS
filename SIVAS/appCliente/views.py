@@ -22,7 +22,7 @@ def index(request):
 	return render(request,"cliente/index.html")
 
 
-#funcion que busca los vuelos
+
 def register(request):
 	gene=genero.objects.all()
 	tidoc=tipo_documento.objects.all()
@@ -85,19 +85,34 @@ def before(request):
 def ingreso(request):
 	return render(request, "cliente/ingreso.html")
 
+
+
+
+def indexBusqueda(request):
+	ciudades = ciudad.objects.all()
+	return render(request,"reserva/inicio.html",{'ciudades':ciudades})
+
+#funcion que busca los vuelos
 def busqueda(request):
 	ciudades = ciudad.objects.all()
 
 	if request.method == 'POST':
 		ciudad_origen =ciudad.objects.filter(cod_iata_ciudad=request.POST.get('ciudadOrigen')) 
 		ciudad_destino = ciudad.objects.filter(cod_iata_ciudad=request.POST.get('ciudadDestino'))
+		fecha_partida = request.POST.get('fecha_partida')
+		fecha_regreso = request.POST.get('fecha_regreso')
+
+
 
 		aero_origen = aeropuerto.objects.filter(ciudad=ciudad_origen)
 		aero_destino = aeropuerto.objects.filter(ciudad=ciudad_destino)
 
-		vuelo_principal = vuelo.objects.filter(aeropuerto_origen=aero_origen,aeropuerto_destino=aero_destino)
-
-		if vuelo_principal is None:
-			pass
+		#vuelo_principal = vuelo.objects.filter(aeropuerto_origen=aero_origen,aeropuerto_destino=aero_destino)
+		itinerarios_partida = itinerario.objects.filter(aeropuert_origen=aero_origen,aeropuert_destino=aero_destino, fecha_itinerario=fecha_partida)
+		itinerarios_regreso = itinerario.objects.filter(aeropuert_origen= aero_origen, aeropuert_destino=aero_destino,fecha_itinerario=fecha_regreso)
+		if itinerario_partida is None || itinerarios_regreso is None:
+			msg="No se encontro vuelos para esas fechas, por favor verigique con otras fechas"
+			return render(request,"reserva/inicio.html",{'MSG':msg})
 		else:
-			itinerario_principal = itinerario.objects.filter(vuelo = vuelo_principal)
+			return render(request,"reserva/resultado.html",{'salidas':itinerario_partida,'regresos':itinerarios_regreso})
+			
