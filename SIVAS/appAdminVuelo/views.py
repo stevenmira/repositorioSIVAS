@@ -262,7 +262,7 @@ class vuelo_linea_list(ListView):
 
 def VueloList(request, pk):
     lineaAerea = linea_aerea.objects.get(codigo_linea_aerea = pk)
-    vuelos = vuelo.objects.filter(linea_aerea = lineaAerea).order_by('-codigo_vuelo')
+    vuelos = vuelo.objects.filter(linea_aerea = lineaAerea).order_by('codigo_vuelo')
     return render(request, 'vuelo/vuelo_list.html', {'lineaAerea':lineaAerea, 'vuelos':vuelos})
 
 def VueloCreation(request,pk):
@@ -345,7 +345,67 @@ class horario_linea_list(ListView):
     template_name = "horario/linea_list.html"
     paginate_by = 10
 
-def HorarioList(request, pk):
+def HorarioAeropuertosList(request, pk):
     lineaAerea = linea_aerea.objects.get(codigo_linea_aerea = pk)
-    horarios = horario.objects.filter(vuelo__linea_aerea = lineaAerea)
-    return render(request, 'horario/horario_list.html', {'lineaAerea':lineaAerea, 'horarios':horarios})
+    detalles = detalle_linea_aeropuerto.objects.filter(linea_aerea = lineaAerea)
+    return render(request, 'horario/aeropuertos_list.html', {'lineaAerea':lineaAerea, 'detalles':detalles})
+
+def Horario(request, pk):
+    detalle = detalle_linea_aeropuerto.objects.get(id_detalle_linea_aeropuerto = pk)
+    horarios = horario.objects.filter(detalle_linea_aeropuerto = detalle).order_by('hora_salida')
+    lineaAerea = linea_aerea.objects.get(codigo_linea_aerea = detalle.linea_aerea.codigo_linea_aerea)
+    aero = aeropuerto.objects.get(codigo_aeropuerto = detalle.aeropuerto.codigo_aeropuerto)
+    return render(request, 'horario/horario.html', {'lineaAerea':lineaAerea, 'detalle':detalle, 'horarios':horarios, 'aero':aero})
+
+def HorarioCreation(request, pk):
+    pk = pk
+    return render(request, 'horario/nuevoHorario.html', {'pk':pk})
+
+class itinerario_linea_list(ListView):
+    model = linea_aerea
+    template_name = "itinerario/linea_list.html"
+    paginate_by = 10
+
+def ItinerarioAerolinea(request, pk):
+    lineaAerea = linea_aerea.objects.get(codigo_linea_aerea = pk)
+    itinerarios = itinerario.objects.filter(linea_aerea = lineaAerea)
+
+    cont =len(itinerarios)
+
+    diccionario={}
+
+    for i in range(cont):
+        pkp = itinerarios[i].id_itinerario
+        iti = itinerario.objects.get(id_itinerario = pkp)
+        detalles = detalle_itinerario.objects.filter(itinerario = iti)
+        
+        diccionario[iti]=[detalles]
+
+
+    return render(request, 'itinerario/itis_linea.html', {'lineaAerea':lineaAerea, 'itinerarios':itinerarios, 'diccionario':diccionario})
+
+def ItinerarioList(request):
+    itinerarios = itinerario.objects.all()
+    cont =len(itinerarios)
+
+    diccionario={}
+
+    for i in range(cont):
+        pkp = itinerarios[i].id_itinerario
+        iti = itinerario.objects.get(id_itinerario = pkp)
+        detalles = detalle_itinerario.objects.filter(itinerario = iti)
+
+        cont2 = len(detalles)
+        lista = []
+
+        for j in range(cont):
+            pkp = detalles[j].id_detalle_itinerario
+            det = detalle_itinerario.objects.get(id_detalle_itinerario = pkp)
+            lista.append(det.vuelo.codigo_vuelo)
+        
+        diccionario[iti]=[detalles]
+
+    return render(request, 'itinerario/itinerarios.html', {'diccionario':diccionario})
+
+
+

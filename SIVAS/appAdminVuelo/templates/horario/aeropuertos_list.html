@@ -3,12 +3,12 @@
 
 <section class="content-header">
   <h1 style="color: #333333; font-family: 'Times New Roman', Times, serif;">
-     Gestión de horarios
+     Gestión de horarios - Aeropuertos
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
     <li class="active"><a href="#"> Aerolineas</a></li>
-    <li class="active">Horarios</li>
+    <li class="active">Aeropuertos</li>
   </ol>
 </section>
 <br>
@@ -23,42 +23,38 @@
                 <thead>
                     <tr class="success">
                       <th colspan="12">
-                          <h3 style="text-align: center;font-family:  Times New Roman, sans-serif; color: #1C2331;"><b>{{lineaAerea.nombre_oficial}}</b><a class="btn btn-success pull-right verde" data-title="Agregar Nuevo Vuelo" href="{% url "aav:nuevoHorario" lineaAerea.codigo_linea_aerea %}"><i class="fa fa-fw -square -circle fa-plus-square"></i></a></h3>
+                        <h3 style="text-align: center;font-family:  Times New Roman, sans-serif; color: #1C2331;">
+                            <b>{{lineaAerea.nombre_oficial}}</b>
+                        </h3>
                       </th>
                   </tr>
                     <tr class="info">
-                        <th>Partida</th>
-                        <th>Destino</th>
-                        <th>Llegada</th>
-                        <th>Vuelo</th>
-                        <th>Transporte</th>
-                        <th>Gateway</th>
+                        <th>Países - Ciudad - IATA</th>
+                        <th>Cód. Aeropuerto</th>
+                        <th>Nombre Aeropuerto</th>
                         <th style="width: 150px;">Acciones</th>
                     </tr>
                 </thead>
 
-                    {% for horario in horarios %}
+                    {% for det in detalles %}
                 <tr>
-                    <td>{{ horario.hora_salida }}</td>
-                    <td>{{ horario.vuelo.aeropuerto_destino }}</td>
-                    <td>{{ horario.hora_llegada }}</td>
-                    <td>{{ horario.vuelo.codigo_vuelo }}</td>
-                    <td>{{ horario.vuelo.linea_aerea.nombre_corto }}</td>
-                    <td>{{ horario.vuelo }}</td>
                     <td>
-                        <a class="btn btn-warning amarillo" data-title="Ver" href="#" data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i></a>
-
-                        <a class="btn btn-info azul" data-title="Editar" href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-
-                        <a class="btn btn-danger rojo" data-title="Eliminar" href="" data-toggle="modal"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        {{ det.aeropuerto.ciudad.pais.nombre_pais }}, 
+                        {{ det.aeropuerto.ciudad.nombre_ciudad }}
+                        ( {{ det.aeropuerto.ciudad.cod_iata_ciudad }} )
+                    </td>
+                    <td>{{ det.aeropuerto.codigo_aeropuerto }}</td>
+                    <td>{{ det.aeropuerto.nombre_aeropuerto }}</td>
+                    <td>
+                        <a class="btn" style="background: #558b2f; color: #fff;" href="{%  url 'aav:horario' det.id_detalle_linea_aeropuerto %}" data-toggle="modal">HORARIOS</a>
                     </td>
                 </tr>
                     {% endfor %}
 
-                    {% if vuelos == null %}
+                    {% if detalles == null %}
                         <tr>
                         <td><h4 style="text-align: center; font-family:  Times New Roman, sans-serif;">
-                            <i>No hay registros de vuelos para {{lineaAerea.nombre_corto}}</i></h4></td>
+                            <i>No hay registros en aeropuertos para {{lineaAerea.nombre_corto}}</i></h4></td>
                         <td></td>
                         </tr>
                     {% endif %}
