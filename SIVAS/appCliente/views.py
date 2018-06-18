@@ -18,6 +18,8 @@ from django.views.generic.edit import (
 def index(request):
 	return render(request,"cliente/index.html")
 
+
+#funcion que busca los vuelos
 def busqueda(request):
 	ciudades = ciudad.objects.all()
 
