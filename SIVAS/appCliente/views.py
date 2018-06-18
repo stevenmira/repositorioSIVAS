@@ -110,7 +110,7 @@ def busqueda(request):
 		#vuelo_principal = vuelo.objects.filter(aeropuerto_origen=aero_origen,aeropuerto_destino=aero_destino)
 		itinerarios_partida = itinerario.objects.filter(aeropuert_origen=aero_origen,aeropuert_destino=aero_destino, fecha_itinerario=fecha_partida)
 		itinerarios_regreso = itinerario.objects.filter(aeropuert_origen= aero_origen, aeropuert_destino=aero_destino,fecha_itinerario=fecha_regreso)
-		if itinerario_partida is None || itinerarios_regreso is None:
+		if itinerario_partida is None or itinerarios_regreso is None:
 			msg="No se encontro vuelos para esas fechas, por favor verigique con otras fechas"
 			return render(request,"reserva/inicio.html",{'MSG':msg})
 		else:
