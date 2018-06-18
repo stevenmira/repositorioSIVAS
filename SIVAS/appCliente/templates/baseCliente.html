@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+
 <html lang="en" class="no-js">
 	<head>
 		<meta charset="UTF-8" />
@@ -13,11 +14,14 @@
 		<link href="{% static 'css/default.css' %}" rel="stylesheet" />
 		<link href="{% static 'css/component.css' %}" rel="stylesheet" />
 		<script src="{% static 'js/modernizr.custom.js' %}"></script>
+		<!-- Bootstrap 3.3.5 -->
+    	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+
 	</head>
 	<body>
 		<div class="container">
 			<header class="clearfix">
-				<span>SIVAS</span>
+				<span>SIVAS</span><div align="right"><a href="ingreso" data-toggle="tab">Ingresar</a><br><a href="before" data-toggle="tab">Registrarse</a></div>
 				<h1>SISTEMA DE VUELOS ONLINE</h1>
 			</header>	
 			<div class="main">

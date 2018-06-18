@@ -12,4 +12,23 @@ urlpatterns = [
     url(r'^editar-pais/(?P<pk>\d+)/$',PaisUpdate.as_view(),name='paisEditar'),
     url(r'^eliminar-pais/(?P<pk>\d+)/$',PaisDelete.as_view(),name='paisEliminar'),
     url(r'^exito$',curso_exito, name='exito'),
+
+    #CRUD EstadoCivil
+    url(r'^lista-estado$',lista_estado.as_view(), name='listaEstado'),
+    url(r'^nuevo-estado$',estado_create, name='nuevoEstado'),
+    url(r'^editar-estado/(?P<pk>\d+)/$',EstadoUpdate.as_view(),name='estadoEditar'),
+    url(r'^eliminar-estado/(?P<pk>\d+)/$',EstadoDelete.as_view(),name='estadoEliminar'),
+
+    #CRUD Genero
+    url(r'^lista-genero$',GeneroList.as_view(), name='listaGenero'),
+    url(r'^nuevo-genero$',genero_create, name='nuevoGenero'),
+    url(r'^editar-genero/(?P<pk>\d+)/$',GeneroUpdate.as_view(),name='generoEditar'),
+    url(r'^eliminar-genero/(?P<pk>\d+)/$',GeneroDelete.as_view(),name='generoEliminar'),
+
+    #CRUD TipoGenero
+    url(r'^lista-tipo$',TipoList.as_view(), name='listaTipo'),
+    url(r'^nuevo-tipo$',tipo_create, name='nuevoTipo'),
+    url(r'^editar-tipo/(?P<pk>\d+)/$',TipoUpdate.as_view(),name='tipoEditar'),
+    url(r'^eliminar-tipo/(?P<pk>\d+)/$',TipoDelete.as_view(),name='tipoEliminar'),
+
 ]

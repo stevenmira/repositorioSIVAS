@@ -48,3 +48,39 @@ class CiudadForm(forms.ModelForm):
             'cod_iata_ciudad':forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Codigo IATA de la ciudad','autofocus':'True','required':'True','maxlenght':'3'}),
             'nombre_ciudad':forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el nombre de la Ciudad','autofocus':'true','required':'true','maxlenght':'30'}),
         }
+
+class EstadoCivilForm(forms.ModelForm):
+    class Meta:
+        model = estado_civil
+        exclude = ()
+        field = [
+            'nombre_estado',
+        ]
+        widgets = {
+            'nombre_estado':forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Nombre del Estado Civil','autofocus':'True','required':'True','maxlength':'15'}),
+            
+        }
+
+class GeneroForm(forms.ModelForm):
+    class Meta:
+        model = genero
+        exclude = ()
+        field = [
+            'nombre_genero',
+        ]
+        widgets = {
+            'nombre_genero':forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Genero','autofocus':'True','required':'True','maxlength':'1'}),
+            
+        }
+
+class TipoForm(forms.ModelForm):
+    class Meta:
+        model = tipo_documento
+        exclude = ()
+        field = [
+            'nombre_tipo_documento',
+        ]
+        widgets = {
+            'nombre_tipo_documento':forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Tipo de Documento','autofocus':'True','required':'True','maxlength':'20'}),
+            
+        }

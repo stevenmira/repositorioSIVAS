@@ -1,0 +1,56 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+
+
+
+
+<div class="col-md-12 col-md-offset-0">
+        <legend class="the-legend"><h1 style="text-align: center;">Género</h1></legend>
+    </div>
+
+
+<div class="row">
+    <span><p><a href="nuevo-genero"><button class="btn btn-success"><i class="fa fa-fw -square -circle fa-plus-square"></i> Agregar Género</button></a></p>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr class="success">
+                    <th>Genero</th>
+                    <th style="width: 250px;">Acciones</th>
+                </tr>
+                {% if object_list %}
+                {% for genero in object_list %}
+
+                <tr>
+                    <td>{{genero.nombre_genero}}</td>
+                    <td>
+                        <a class="btn btn-info" href="{% url "aaae:generoEditar" genero.id_genero %}">Editar</a>
+                        <a class="btn btn-danger" href="{% url "aaae:generoEliminar" genero.id_genero %}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <h3>No hay Géneros</h3>
+                {% endif %}
+            </table>
+
+            <ul class="pager">
+                <li>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+                </li>
+                <li>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                {% endif %}
+                </li>
+            </ul>
+
+        </div>
+    
+    
+  
+</div>
+
+
+{% endblock %}
