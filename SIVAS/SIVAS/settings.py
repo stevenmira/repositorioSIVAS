@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'appAdminAeropuerto',
     'appAdminVuelo',
     'appCliente',
+    
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -84,9 +85,9 @@ DATABASES = {
        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
        'NAME': 'BDSIVAS',      #Nombre de la BBDD
        'USER': 'postgres', 
-        'PASSWORD': 'postgres', 
+        'PASSWORD': 'admin', 
         'HOST': 'localhost', 
-        'PORT': 5432, 
+        'PORT': '5432', 
     } 
 }
 

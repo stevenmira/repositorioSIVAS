@@ -6223,3 +6223,17 @@ tcl/tk8.6/ttk/winTheme.tcl
 tcl/tk8.6/ttk/xpTheme.tcl
 tcl/tk8.6/unsupported.tcl
 tcl/tk8.6/xmfbox.tcl
+SIVAS/appAdminAeropuerto/__pycache__/admin.cpython-35.pyc
+SIVAS/appAdminAeropuerto/__pycache__/models.cpython-35.pyc
+SIVAS/appAdminAeropuerto/__pycache__/__init__.cpython-35.pyc
+SIVAS/appAdminAplicacion/migrations/__pycache__/0001_initial.cpython-35.pyc
+SIVAS/appAdminAplicacion/migrations/__pycache__/__init__.cpython-35.pyc
+SIVAS/appAdminAplicacion/__pycache__/admin.cpython-35.pyc
+SIVAS/appAdminAplicacion/__pycache__/models.cpython-35.pyc
+SIVAS/appAdminAplicacion/__pycache__/urls.cpython-35.pyc
+SIVAS/appAdminAplicacion/__pycache__/views.cpython-35.pyc
+SIVAS/appAdminAplicacion/__pycache__/__init__.cpython-35.pyc
+SIVAS/appAdminVuelo/migrations/__pycache__/__init__.cpython-35.pyc
+SIVAS/appAdminVuelo/__pycache__/admin.cpython-35.pyc
+*.pyc
+*.pyc

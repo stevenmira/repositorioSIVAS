@@ -1,0 +1,143 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+<section class="content-header">
+  <h1 style="color: #333333; font-family: 'Times New Roman', Times, serif;">
+     NUEVO VUELO
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active"><a href="#"> Aerolineas</a></li>
+    <li class="active">Vuelo</li>
+    <li class="active">Nuevo</li>
+  </ol>
+</section>
+<br>
+<br>
+
+    <div class="col-md-12 col-lg-12"> 
+        <div class="panel panel-success">
+            <div class="panel-body">
+                <h4 style="color: #333333; font-family: 'Times New Roman', Times, serif;">
+                    <b> Datos del Vuelo</b>
+                </h4>
+                <hr>
+                <form  action="" method="post">
+                    {% csrf_token %}
+
+                   {% if form.errors %}
+                   <p style="color: red;">Por favor corrige lo siguiente: </p>
+                   {% endif %}
+                   <p style="color: red;">{{mensaje}}</p>
+
+                   {{form.errors}}
+
+                   <div class="row">
+                        <div class="form-group col-md-4">
+                              <label>LÍNEA AEREA SELECCIONADA</label>
+                              <select type="text"  name="linea_aerea" class="form-control">
+                                  {% for linea in lineas %}
+                                    {% if linea == lineaAerea %}
+                                      <option name="linea_aerea" selected value="{{linea.codigo_linea_aerea}}">{{linea.nombre_corto}}</option>
+                                    {% endif %}
+                                  {% endfor %}
+                              </select>
+                              {{ form.linea_aerea.errors }}
+                          </div>
+
+                          <div class="form-group col-md-4 col-lg-4">
+                              <label style="text-align: center;">CÓDIGO DE VUELO</label>
+                              <div class="input-group">
+                                <div class="input-group-addon">
+                                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </div>
+                                    {{form.codigo_vuelo}}
+                              </div>
+                              {{ form.codigo_vuelo.errors }}
+                          </div>
+
+                     </div>
+
+                    <div class="row">
+                      <div class="form-group col-md-4">
+                            <label>AEROPUERTO ORIGEN</label>
+                            <select type="text" name="aeropuerto_origen" class="form-control selectpicker" data-Live-search="true">
+                                {% for aeropuerto in aeropuertos %}
+                               <option name="aeropuerto_origen" class="" value="{{aeropuerto.codigo_aeropuerto}}">{{aeropuerto.nombre_aeropuerto}}</option>
+                                {% endfor %}
+                            </select>
+                            {{ form.aeropuerto_origen.errors }}
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>AEROPUERTO DESTINO</label>
+                            <select type="text" name="aeropuerto_destino" class="form-control selectpicker" data-Live-search="true">
+                                {% for aeropuerto in aeropuertos %}
+                               <option name="aeropuerto_destino" class="" value="{{aeropuerto.codigo_aeropuerto}}">{{aeropuerto.nombre_aeropuerto}}</option>
+                                {% endfor %}
+                            </select>
+                            {{ form.aeropuerto_destino.errors }}
+                        </div>  
+                    </div>
+
+                    <div class="row">
+                      <div class="form-group col-md-4 col-lg-4">
+                          <label style="text-align: center;">COSTO VIAJE</label>
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                                {{ form.costo_viaje }}
+                          </div>
+                          {{ form.costo_viaje.errors }}
+                      </div>
+                      <div class="form-group col-md-4 col-lg-4">
+                         <label style="text-align: center;">MILLA RECORRIDA</label>
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                                {{ form.milla_recorrida }}
+                          </div>
+                          {{ form.milla_recorrida.errors }}
+                      </div>
+                      <div class="form-group col-md-4 col-lg-4">
+                         <label style="text-align: center;">MILLA OTORGAR</label>
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                                {{ form.milla_otorgar }}
+                          </div>
+                          {{ form.milla_otorgar.errors }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="form-group col-md-4 col-lg-4">
+                         <label style="text-align: center;">TIEMPO DE VUELO</label>
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                                {{ form.tiempo_de_vuelo }}
+                          </div>
+                          {{ form.tiempo_de_vuelo.errors }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" id="guardar">
+                          <div class="form-group">
+                              <a href="{% url "aav:listaVuelo" codigo_linea_a %}" class="btn btn-danger btn-lg col-md-offset-2"><i class="fa fa-times" aria-hidden="true"></i>   Cancelar</a>
+                              <button class="btn btn-primary btn-lg col-md-offset-6" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>
+                            </div>
+                        </div>
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </div>
+}
+}
+
+{% endblock %}

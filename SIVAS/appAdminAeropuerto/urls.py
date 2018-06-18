@@ -2,7 +2,11 @@ from django.conf.urls import url, include
 from appAdminAeropuerto.views import *
 
 urlpatterns = [
-    url(r'^nuevo$',aeropuerto_create,name='aeropuerto_create'),
+    url(r'^nuevo-aeropuerto$',aeropuerto_create,name='nuevoAeropuerto'),
+    url(r'^lista-aeropuerto$',AeroList.as_view(), name='listaAero'),
+    url(r'^editar-aeropuerto/(?P<pk>\w+)/$',AeroUpdate.as_view(),name='aeropuertoEditar'),
+    
+    url(r'^eliminar-aeropuerto/(?P<pk>\w+)/$',AeroDelete.as_view(),name='aeropuertoEliminar'),
     url(r'^nuevo-pais$',pais_create, name='nuevoPais'),
     url(r'^lista-pais$',PaisList.as_view(), name='listaPais'),
     url(r'^nueva-ciudad$',ciudad_create, name='nuevaCiudad'),
@@ -31,4 +35,9 @@ urlpatterns = [
     url(r'^editar-tipo/(?P<pk>\d+)/$',TipoUpdate.as_view(),name='tipoEditar'),
     url(r'^eliminar-tipo/(?P<pk>\d+)/$',TipoDelete.as_view(),name='tipoEliminar'),
 
-]
+    url(r'^lista-gateway/(?P<pk>\w+)/$',GatewayList,name='listaGateway'),
+    url(r'^editar-gateway/(?P<pk>\d+)/$',GatewayUpdate.as_view(),name='gatewayEditar'),
+    url(r'^nuevo-gateway$',GatewayCreate.as_view(), name='nuevoGateway'),
+    url(r'^eliminar-gateway/(?P<pk>\d+)/$',GatewayDelete.as_view(), name='gatewayEliminar'),
+
+] 

@@ -1,0 +1,169 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+{% load staticfiles %}
+<section class="content-header">
+  <h1 style="color: #333333; font-family: 'Times New Roman', Times, serif; text-shadow: 2px 2px 10px #76ff03;" class="info-box-text">
+     {{ avionX.linea_aerea.nombre_oficial }}
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active"><a href="#"> Aerolineas</a></li>
+    <li class="active"><a href="#"> Aviones</a></li>
+    <li class="active"><a href="#"> Detalle</a></li>
+    <li class="active">Cabinas</li>
+  </ol>
+</section>
+<br>
+
+<style type="text/css">
+  fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    background: #f9fbe7;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend.scheduler-border {
+    width:inherit; 
+    padding:0 10px; 
+    border-bottom:none;
+}
+</style>
+
+<fieldset class="scheduler-border">
+    <legend  class="scheduler-border">Datos del avión</legend>
+    <div class="row">
+      <div class="col-md-1 col-lg-1 col-sm-2 col-xs-12">
+            <p><label class="control-label input-label" >TIPO:</label></p>
+      </div>
+
+      <div class="col-md-2 col-lg-2 col-sm-4 col-xs-12">
+            <p>{{ avionX.tipo_avion.nombre_tipo_avion}}</p>
+      </div>
+
+      <div class="col-md-1 col-lg-1 col-sm-1 col-xs-12">
+            <p><label class="control-label input-label" >MARCA:</label></p>
+      </div>
+
+      <div class="col-md-1 col-lg-1 col-sm-2 col-xs-12">
+            <p>{{avionX.marca}}</p>
+      </div>
+
+      <div class="col-md-1 col-lg-1 col-sm-1 col-xs-12">
+            <p><label class="control-label input-label" >MODELO:</label></p>
+      </div>
+
+      <div class="col-md-1 col-lg-1 col-sm-1 col-xs-12">
+            <p>{{avionX.modelo}}</p>
+      </div>
+
+      <div class="col-md-2 col-lg-2 col-sm-2 col-xs-12">
+            <p><label class="control-label input-label" >CAPACIDAD ASIENTOS</label></p>
+      </div>
+
+      <div class="col-md-1 col-lg-1 col-sm-3 col-xs-12">
+            <p>{{avionX.capacidad_asientos}}</p>
+      </div>
+
+      <div class="col-md-1 col-lg-1 col-sm-2 col-xs-12">
+            <p><label class="control-label input-label" >Disp.</label></p>
+      </div>
+
+      <div class="col-md-1 col-lg-1 col-sm-3 col-xs-12">
+            <p>{{disponible}}</p>
+      </div>
+    </div>
+
+</fieldset>
+
+<div class="row col-md-12 col-lg-12">
+  <h4 style="color: #333333; font-family: 'Times New Roman', Times, serif;">
+      <b> Agregar Clase</b>
+  </h4>
+  <hr style="background-color: #33691e; height:2px; width: 100%;">
+</div>
+
+<div class="row col-md-12 col-lg-12">
+  <form  action="" method="post">
+                    {% csrf_token %}
+
+                   {% if form.errors %}
+                   <p style="color: red;">Por favor corrige lo siguiente: </p>
+                   {% endif %}
+                   <p style="color: red;">{{mensaje}}</p>
+
+                   <!-- relleno -->
+                   {{form.avion}}
+
+                    <div class="row">
+                      <div class="form-group col-md-3 col-lg-3">
+                            <label>TIPO DE CLASE</label>
+                            <select type="text"   name="tipo_cabina" class="form-control">
+                                <option>-- selecciona una opción --</option>
+                                {% for tipo in tipoCabina %}
+                               <option name="tipo_cabina" class="" value="{{tipo.id_tipo_cabina}}">{{tipo.nombre_cabina}}</option>
+                                {% endfor %}
+                            </select>
+                            {{ form.tipo_cabina.errors }}
+                        </div> 
+
+                        <div class="form-group col-md-2 col-lg-2">
+                          <label style="text-align: center;">NO. DE ASIENTOS</label>
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                                {{ form.cantidad_asientos }}
+                          </div>
+                          {{ form.cantidad_asientos.errors }}
+                        </div>
+
+                        <div class="form-group col-md-2 col-lg-2">
+                          <label style="text-align: center;">LETRAS</label>
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </div>
+                                {{ form.conf_columnas }}
+                          </div>
+                          {{ form.conf_columnas.errors }}
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" id="guardar">
+                          <div class="form-group">
+                              <a href="{% url "aav:listaAvion" avionX.linea_aerea.codigo_linea_aerea %}" class="btn btn-danger btn-lg col-md-offset-2"><i class="fa fa-times" aria-hidden="true"></i>   Cancelar</a>
+                              <button class="btn btn-primary btn-lg col-md-offset-6" type="submit"><i class="fa fa-floppy-o" aria-hidden="true"></i>  Guardar</button>
+                            </div>
+                        </div>
+                    </div>  
+
+                </form>
+</div>
+
+
+{% block scripts %}
+
+<!-- InputMask -->
+<script src="{% static 'js/inputmask/jquery3.js' %}"></script>
+<script src="{% static 'js/inputmask/input-mask.js' %}"></script>
+<script src="{% static 'js/inputmask/input-mask-date.js' %}"></script>
+
+ <script>
+  $(function () {
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+  })
+</script>
+
+{% endblock %}
+
+ 
+
+
+{% endblock %}

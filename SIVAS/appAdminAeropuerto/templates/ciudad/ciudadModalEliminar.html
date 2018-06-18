@@ -1,0 +1,38 @@
+<div class="modal-dialog modal-md">
+    <div class="modal-content">
+            <form method="post">
+                    {% csrf_token  %}
+                    
+                    <div class="col-md-12 col-md-offset-0">
+                            <legend class="the-legend"><h1 style="text-align: center;">Eliminar Ciudad</h1></legend>
+                        </div>
+                    
+                    
+                    <div class="row">
+                       
+                            <div class="col-md-12">
+                                <h3>¿Desea eliminar la ciudad <strong> {{object.nombre_ciudad}} </strong> ( {{object.cod_iata_ciudad}} ) ? </h3>
+                                  
+                            </div>
+                      
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group col-md-11">
+                    <button class="btn btn-danger pull-right" type="submit">Eliminar</button>
+                    <a class="btn btn-warning col-md-offset-1 pull-left" href="{% url "aaae:listaCiudad" %}">Regresar</a>
+                    </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                            <div class="col-lg-12 text-right">
+                                    <input type="submit" class="btn btn-danger" name="submit" value="Eliminar">
+                                    <button type="button" class="btn btn-default" onclick="return cerrar_modal()">
+                                            Cancelar
+                                    </button>
+                            </div>
+                    </div>
+                    </form>
+    </div>
+</div>

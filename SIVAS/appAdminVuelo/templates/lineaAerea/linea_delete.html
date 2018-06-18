@@ -1,0 +1,9 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+<form method="post">
+	{% csrf_token %}
+	<h3>¿Desea eliminar la Linea Aerea: {{ object.nombre_oficial}} - {{ object.codigo_linea_aerea }}?</h3>
+	<button class="btn btn-danger" type="submit">Sí, eliminar</button>
+	<a class= "btn btn-default" href="{% url 'aav:linea_list' %}">Cancelar</a>
+</form>
+{% endblock %}

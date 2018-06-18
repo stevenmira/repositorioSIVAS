@@ -1,0 +1,95 @@
+{% extends "baseAdmin.html" %}
+{% block contenido %}
+
+<section class="content-header">
+  <h1 style="color: #333333; font-family: 'Times New Roman', Times, serif;">
+      AVIONES DISPONIBLES
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active"><a href="#"> Aerolineas</a></li>
+    <li class="active">Aviones</li>
+  </ol>
+</section>
+<br>
+
+
+<style type="text/css">
+    #btn {
+          width: 45px;
+          height: 45px;
+          text-align: center;
+          padding: 7px 0;
+          font-size: 24px;
+          line-height: 1.428571429;
+          border-radius: 25px;
+          box-shadow: 0 3px 5px rgba(0,0,0,.4);
+        }
+
+        a.verde[data-title]:hover:after {
+          content: attr(data-title);
+          padding: 4px 8px;
+          margin: -15px 0px;
+          color: #fff;
+          left: -110px;
+          font-size: 15px;
+        }
+
+        #hrcolor{
+
+        }
+</style>
+
+  
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+  <h1 style="text-align: center; color: #333333; font-family: 'Times New Roman', Times, serif; text-shadow: 0 0 30px blue;">
+     {{ lineaAerea.nombre_corto }}
+    <a id="btn" class="btn btn-success pull-right verde btn-lg" data-title="Agregar Avión" href="{% url "aav:nuevoAvion" lineaAerea.codigo_linea_aerea %}"><i class="fa fa-plus"></i></a>
+  </h1>
+  <br>       
+                    
+      {% for avion in aviones %}
+        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+          <div class="info-box" style="background: #1C2331;">
+            <a><span class="info-box-icon" style="background: #3F729B;"><i class="fa fa-plane" style="color: #fff;"></i></span></a>
+
+            <div class="info-box-content" style="color: #fff;">
+              <span class="info-box-text">{{ avion.tipo_avion.nombre_tipo_avion }}</span>
+              <span class="info-box-text">{{ avion.marca }}</span>
+              <span class="info-box-text">{{ avion.modelo }}</span>
+              <span class="info-box-text">{{ avion.capacidad_asientos }} pasajeros</span>
+              <span class="info-box-text"><div class="progress">
+              <div class="progress-bar" style="width: 100%;  background: #3F729B;"></div>
+              </div></span>
+            </div>
+
+            <p style="padding: 10px 10px;">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+            <a href="{% url "aav:verAvion" avion.id_avion %}" style="color: #f57f17;"><b>VER</b></a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{% url "aav:editarAvion" avion.id_avion %}" style="color: #f57f17;"><b>ACTUALIZAR</b></a> 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="" style="color: #f57f17;"><b>ELIMINAR</b></a>
+          </p>
+         
+
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>
+        {% endfor %}
+
+  </div> 
+</div>
+
+<br>
+<br>
+<br>
+<br>
+
+        
+        
+            
+{% endblock %}

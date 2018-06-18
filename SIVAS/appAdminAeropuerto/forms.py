@@ -1,6 +1,7 @@
 from django import forms
 from appAdminAplicacion.models import *
 
+
 class AeropuertoForm(forms.ModelForm):
     class Meta:
         model = aeropuerto
@@ -10,6 +11,7 @@ class AeropuertoForm(forms.ModelForm):
             'telefono_aeropuerto',
             'nombre_responsable',
             'ciudad',
+            'codigo_aeropuerto',
             
         ]
         widgets = {
@@ -17,6 +19,7 @@ class AeropuertoForm(forms.ModelForm):
             'telefono_aeropuerto':forms.TextInput(attrs={'class':'form-control','placeholder':'Numero telefonico principal','autofocus':'True','required':'True','maxlength':'15'}),
             'nombre_responsable':forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el nombre del responsable','autofocus':'True','required':'True','maxlenght':'50'}),   
             'ciudad' : forms.Select(attrs={'class':'form-control'}),
+            'codigo_aeropuerto' : forms.TextInput(attrs={'type':'hidden','value':'Hola'}),
         }
 
 
@@ -82,5 +85,20 @@ class TipoForm(forms.ModelForm):
         ]
         widgets = {
             'nombre_tipo_documento':forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Tipo de Documento','autofocus':'True','required':'True','maxlength':'20'}),
+        }
             
+class GatewayForm(forms.ModelForm):
+    class Meta:
+        model = gateway
+        exclude = ()
+        field = [
+            'codigo_gateway',
+            'estado_gateway',
+            'aeropuerto',
+        ]
+        widgets = {
+            'codigo_gateway':forms.TextInput(attrs={'class':'form-control','placehorlder':'Escriba el codigo del Gateway','autofocus':'True','required':'True','maxlenght':'10'}),
+            'estado_gateway':forms.TextInput(attrs={'class':'form-control','placehorlder':'Escriba el Estado del Gateway','autofocus':'True','required':'True','maxlenght':'15'}),
+            'aeropuerto':forms.Select(attrs={'class':'form-control'}),
+
         }
