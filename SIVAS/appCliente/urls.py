@@ -20,4 +20,10 @@ from appCliente.views import *
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='index'),
+
+    url(r'^before$', before, name='before'),
+    url(r'^register$', register, name='register'),
+    url(r'^registeremp$', register_emp, name='registerempresa'),
+    url(r'^ingreso$', ingreso, name='ingreso'),
+
 ]

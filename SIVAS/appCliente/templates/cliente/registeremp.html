@@ -1,0 +1,162 @@
+{% extends "baseCliente.html" %}
+{% block contenido %}
+
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+    background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=email], input[type=number] {
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+select,option{
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.registerbtn:hover {
+    opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+    color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+    background-color: #f1f1f1;
+    text-align: center;
+}
+</style>
+
+<script>
+    function comprobarClave(){ 
+    psw = document.f1.psw.value 
+    pswrepeat = document.f1.pswrepeat.value 
+
+    if (psw =! pswrepeat) 
+        alert("Las dos claves son distintas...")
+    else
+        alert("Las dos claves son iguales...")
+    }
+
+</script>
+
+<h1 style="text-align: center;">Registro de Empresa</h1>
+
+<form action="" name="f1" method="post">
+{% csrf_token  %}
+  <div class="container">
+    <p>Por favor llenar este formulario para crear una cuenta.</p>
+    <hr>
+    <table align="center">
+        <tr>
+            <th width="200px"><label for="primer_nombre"><b>Nombre</b></label></th>
+            <th width="600px"><input type="text" placeholder="Introduzca Nombre" name="primer_nombre" required><span style="color: red; font-size: 40px;">*</span></th>
+        </tr>
+        <tr>
+            <th><label for="segundo_nombre"><b>Segundo Nombre</b></label></th>
+            <th><input type="text" placeholder="Introduzca Segundo Nombre" name="segundo_nombre"><th>
+        </th>
+        <tr>
+            <th><label for="primer_apellido"><b>Primer Apellido</b></label></th>
+            <th><input type="text" placeholder="Introduzca Apellido" name="primer_apellido" required><span style="color: red; font-size: 40px;">*</span></th>
+        </tr>
+        <tr>
+            <th><label for="segundo_apellido"><b>Segundo Apellido</b></label></th>
+            <th><input type="text" placeholder="Introduzca Segundo Apellido" name="segundo_apellido"><th>
+        </th>
+        <tr>
+            <th><label for="nombre_empresa"><b>Nombre Empresa</b></label></th>
+            <th><input type="text" placeholder="Nombre de Empresa" name="nombre_empresa" required><span style="color: red; font-size: 40px;">*</span><th>
+        </th>
+        <tr>
+            <th><label for="numero_documento"><b>Nit Empresa</b></label></th>
+            <th><input type="number" placeholder="Nit de empresa" name="numero_documento" required><span style="color: red; font-size: 40px;">*</span><th>
+        </th>
+        <tr>
+            <th><label for="nombre_contacto"><b>Nombre Contacto</b></label></th>
+            <th><input type="text" placeholder="Nombre de Empresa" name="nombre_contacto"   ><th>
+        </th>
+        <tr>
+            <th><label for="nic_empresa"><b>Nic Empresa</b></label></th>
+            <th><input type="text" placeholder="Nic de Empresa" name="nic_empresa" required><th>
+        </th>
+        <tr>
+            <th><label for="telefono_fijo"><b>Telefono Fijo</b></label></th>
+            <th><input type="tel" placeholder="Introduzca Telefono Fijo" name="telefono_fijo"></th>
+        </tr>
+        <tr>
+            <th><label for="telefono_movil"><b>Telefono Movil</b></label></th>
+            <th><input type="tel" placeholder="Introduzca Telefono Movil" name="telefono_movil"><th>
+        </tr>
+        <tr>
+            <th><label for="email_pasajero"><b>E-mail</b></label></th>
+            <th><input type="email" placeholder="Introduzca Email" name="email_pasajero" required="true"><th>
+        </tr>
+        <tr>
+            <th><label for="psw"><b>Password</b></label></th>
+            <th><input type="password" size="20" placeholder="Introduzca Contraseña" name="psw" required><span style="color: red; font-size: 40px;">*</span><th>
+        </tr>
+        <tr>
+            <th><label for="pswrepeat"><b>Repeat Password </b></label></th>
+            <th><input type="password" size="20" placeholder="Repita Contraseña" name="pswrepeat" required><span style="color: red; font-size: 40px;">*</span></th>
+        </tr>
+    </table>    
+    </div>
+    <hr>
+    <div align="center"><p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+    <button style="width: 75%;"  type="submit" class="registerbtn"  value="Comprobar si son iguales" onclick="comprobarClave()">Registrar</button></div>
+  
+    <div class="container signin" align="center" style="width: 60%;">
+        <p>Already have an account? <a href="#">Sign in</a>.</p>
+    </div>
+</form>
+
+{% endblock %}
