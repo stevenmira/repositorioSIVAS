@@ -27,5 +27,7 @@ urlpatterns = [
     url(r'^ingreso$', ingreso, name='ingreso'),
     url(r'^tarjeta$', tarjeta, name='tarjeta'),
     url(r'^perfil/(?P<pk>\d+)/$', perfil, name='perfil'),
-    
+    url(r'^cliente/buscar$',indexBusqueda,name='buscarVuelo'),
+    url(r'^cliente/resultado$',busqueda,name='resultado')
+
 ]

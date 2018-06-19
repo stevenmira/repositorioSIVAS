@@ -394,18 +394,33 @@ def ItinerarioList(request):
         pkp = itinerarios[i].id_itinerario
         iti = itinerario.objects.get(id_itinerario = pkp)
         detalles = detalle_itinerario.objects.filter(itinerario = iti)
-
-        cont2 = len(detalles)
-        lista = []
-
-        for j in range(cont):
-            pkp = detalles[j].id_detalle_itinerario
-            det = detalle_itinerario.objects.get(id_detalle_itinerario = pkp)
-            lista.append(det.vuelo.codigo_vuelo)
         
         diccionario[iti]=[detalles]
 
     return render(request, 'itinerario/itinerarios.html', {'diccionario':diccionario})
+
+def ItinerarioCreation(request, pk):
+    lineaAerea = linea_aerea.objects.get(codigo_linea_aerea = pk)
+    aeropuertos = detalle_linea_aeropuerto.objects.filter(linea_aerea=lineaAerea)
+    lineas = linea_aerea.objects.all()
+    vuelos = vuelo.objects.filter(linea_aerea = lineaAerea)
+    horarios = horario.objects.filter(vuelo__linea_aerea = lineaAerea).order_by('id_horario')
+
+    if request.method == 'POST':
+        form = ItinerarioForm(request.POST)
+
+        if form.is_valid():
+            return redirect('aav:itinerariolinea_list')
+        else:
+            return render(request, 'itinerario/iti_nuevo_form.html', {'form':form,'aeropuertos':aeropuertos,
+                'lineaAerea':lineaAerea, 'lineas': lineas, 'horarios': horarios}, 
+                context_instance = RequestContext(request))
+    else:
+        form = ItinerarioForm
+    return render(request, 'itinerario/iti_nuevo_form.html', {'form':form,'aeropuertos':aeropuertos, 
+        'lineaAerea':lineaAerea, 'lineas': lineas, 'horarios': horarios}, 
+        context_instance = RequestContext(request))
+
 
 
 
