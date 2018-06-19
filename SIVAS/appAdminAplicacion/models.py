@@ -62,8 +62,8 @@ class linea_aerea(models.Model):
 	nombre_corto = models.CharField(max_length=30, null=False, blank=False)
 	fecha_fundacion = models.DateField(null=False, blank=False)
 	nombre_representante = models.CharField(max_length=50, null=False, blank=False)
-	direccion_facebook = models.CharField(max_length=30, null=True, blank=True)
-	direccion_twitter = models.CharField(max_length=30, null=True, blank=True)
+	direccion_facebook = models.CharField(max_length=50, null=True, blank=True)
+	direccion_twitter = models.CharField(max_length=50, null=True, blank=True)
 	email_linea_aerea = models.EmailField(max_length=255, null=False, blank=False)
 
 	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -186,10 +186,10 @@ class gateway(models.Model):
 class horario(models.Model):
 	id_horario = models.AutoField(primary_key=True)
 	vuelo = models.ForeignKey(vuelo, null=False, db_column='codigo_vuelo', on_delete=models.CASCADE)
-	aeropuerto = models.ForeignKey(aeropuerto, null=False, db_column='codigo_aeropuerto', on_delete=models.CASCADE)
+	detalle_linea_aeropuerto = models.ForeignKey(detalle_linea_aeropuerto, null=False, db_column='id_detalle_linea_aeropuerto', on_delete=models.CASCADE)
 	gateway = models.ForeignKey(gateway, null=False, db_column='id_gateway', on_delete=models.CASCADE)
-	hora_salida = models.DateTimeField(null=False, blank=False)
-	hora_llegada = models.DateTimeField(null=False, blank=False)
+	hora_salida = models.TimeField(null=False, blank=False)
+	hora_llegada = models.TimeField(null=False, blank=False)
 	fecha_registro = models.DateField(null=True, blank=True)
 
 	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -311,7 +311,8 @@ class itinerario(models.Model):
 	id_itinerario = models.AutoField(primary_key=True)
 	aeropuert_origen = models.ForeignKey(aeropuerto, null=False, related_name='codigo_aeropuert_origen', db_column='codigo_aeropuert_origen', on_delete=models.CASCADE)
 	aeropuert_destino = models.ForeignKey(aeropuerto, null=False, related_name='codigo_aeropuert_destino', db_column='codigo_aeropuert_destino', on_delete=models.CASCADE)
-	fecha_itinerario = models.DateTimeField()
+	linea_aerea = models.ForeignKey(linea_aerea, null=True, db_column='codigo_linea_aerea', on_delete=models.CASCADE)
+	fecha_itinerario = models.DateTimeField(null=True, blank=True)
 	monto_total = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
 	estado_itinerario = models.CharField(max_length=15)
 
@@ -328,7 +329,7 @@ class itinerario(models.Model):
 
 class detalle_itinerario(models.Model):
 	id_detalle_itinerario = models.AutoField(primary_key=True)
-	fecha_det_iti = models.DateField()
+	fecha_det_iti = models.DateField(null=True, blank=True)
 	vuelo = models.ForeignKey(vuelo, null=True, db_column='codigo_vuelo', on_delete=models.CASCADE)
 	horario = models.ForeignKey(horario, null=False, db_column='id_horario', on_delete=models.CASCADE)
 	avion = models.ForeignKey(avion, null=False, db_column='id_avion', on_delete=models.CASCADE)
@@ -343,7 +344,10 @@ class detalle_itinerario(models.Model):
 		db_table = 'detalle_itinerario'
 
 	def __str__(self):
-		return '%s' % (self.id_detalle_itinerario)
+		return 'VUELO: %s -- AVION: %s -- ORIGEN: %s -- SALIDA: %s -- DESTINO: %s -- LLEGADA: %s -- GATEWAY: %s' % (self.vuelo.codigo_vuelo, 
+			self.avion.modelo, self.vuelo.aeropuerto_origen.nombre_aeropuerto, self.horario.hora_salida, 
+			self.vuelo.aeropuerto_destino.nombre_aeropuerto, self.horario.hora_llegada,
+			self.horario.gateway.codigo_gateway)
 
 class detalle_viaje(models.Model):
 	id_detalle_viaje = models.AutoField(primary_key=True)

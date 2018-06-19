@@ -121,29 +121,8 @@
                 <li><a href="{% url 'aav:vuelolinea_list' %}"><i class="fa fa-circle-o"></i> Vuelos por aerolinea</a></li>
               </ul>
             </li>
-
+            
             <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-file-text"></i>
-                  <span>Administracion</span>
-                   <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="{% url "aaae:listaPais" %}"><i class="fa fa-circle-o"></i>Paises</a></li>
-                  <li><a href="{% url "aaae:listaCiudad" %}"><i class="fa fa-circle-o"></i>Ciudades</a></li>
-                </ul>
-              </li>
-            <li class="treeview">
-                <a href="#">
-                  <i class="fa fa-file-text"></i>
-                  <span>Opciones Cliente</span>
-                   <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                  <li><a href="lista-estado"><i class="fa fa-circle-o"></i>Estado Civil</a></li>
-                  <li><a href="{% url "aaae:listaTipo" %}"><i class="fa fa-circle-o"></i>Tipo de Documento</a></li>
-                  <li><a href="{% url "aaae:listaGenero" %}"><i class="fa fa-circle-o"></i>Genero</a></li>
-                </ul>
               <a href="#">
                 <i class="fa fa-list"></i>
                 <span>Gestión de horarios</span>
@@ -153,6 +132,18 @@
                 <li><a href="{% url 'aav:horariolinea_list' %}"><i class="fa fa-circle-o"></i> Horarios por aerolinea</a></li>
               </ul>
            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-list"></i>
+                <span>Itinerarios</span>
+                 <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{% url 'aav:itinerariolinea_list' %}"><i class="fa fa-circle-o"></i> Lineas Aereas </a></li>
+                <li><a href="{% url 'aav:itinerarios' %}"><i class="fa fa-circle-o"></i> Listados </a></li>
+              </ul>
+            </li>
 
             <li class="treeview">
               <a href="#">

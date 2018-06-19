@@ -34,6 +34,32 @@ urlpatterns = [
 
 	#Horario
 	url(r'^aerolinea/horarios', horario_linea_list.as_view(), name='horariolinea_list'),
-	url(r'^aerolinea/aeropuerto/horario/(?P<pk>\w+)/$', HorarioList, name='listaHorario'),
+	url(r'^aerolinea/aeropuertos/(?P<pk>\w+)/$', HorarioAeropuertosList, name='listaHorario'),
+	url(r'^aerolinea/aeropuerto/horario/(?P<pk>\d+)/$', Horario, name='horario'),
+	url(r'^aerolinea/aeropuerto/horario/nuevo/(?P<pk>\d+)/$', HorarioCreation, name='nuevoHorario'),
+
+	#Itinerario
+	url(r'^aerolinea/itinerario', itinerario_linea_list.as_view(), name='itinerariolinea_list'),
+	url(r'^itinerarios/linea/aerea/(?P<pk>\w+)/$', ItinerarioAerolinea, name='itiAerolinea'),
+	url(r'^itinerarios/', ItinerarioList, name='itinerarios'),
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
