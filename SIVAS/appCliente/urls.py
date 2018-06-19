@@ -25,5 +25,8 @@ urlpatterns = [
     url(r'^register$', register, name='register'),
     url(r'^registeremp$', register_emp, name='registerempresa'),
     url(r'^ingreso$', ingreso, name='ingreso'),
+    url(r'^cliente/buscar$',indexBusqueda,name='buscarVuelo'),
+    url(r'^cliente/resultado$',busqueda,name='resultado')
+
 
 ]
