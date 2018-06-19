@@ -80,10 +80,8 @@ a {
     psw = document.f1.psw.value 
     pswrepeat = document.f1.pswrepeat.value 
 
-    if (psw =! pswrepeat) 
+    if (psw != pswrepeat) 
         alert("Las dos claves son distintas...")
-    else
-        alert("Las dos claves son iguales...")
     }
 
 </script>
@@ -118,11 +116,11 @@ a {
         </th>
         <tr>
             <th><label for="telefono_fijo"><b>Telefono Fijo</b></label></th>
-            <th><input type="tel" name="telefono_fijo"></th>
+            <th><input type="number" placeholder="Introduzca Telefono Fijo" name="telefono_fijo" data-inputmask="'mask':'9999 9999'"></th>
         </tr>
         <tr>
             <th><label for="telefono_movil"><b>Telefono Movil</b></label></th>
-            <th><input type="tel" placeholder="Introduzca Telefono Movil" name="telefono_movil"><th>
+            <th><input type="number" placeholder="Introduzca Telefono Movil" name="telefono_movil"><th>
         </th>
         <tr>
             <th><label for="email_pasajero"><b>E-mail</b></label></th>
@@ -168,10 +166,10 @@ a {
     </div>
     <hr>
     <div align="center"><p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-    <button style="width: 75%;"  type="submit" class="registerbtn"  value="Comprobar si son iguales" onclick="comprobarClave()">Register</button></div>
+    <button style="width: 75%;"  type="submit" class="registerbtn"  value="Comprobar si son iguales">Register</button></div>
   
     <div class="container signin" align="center" style="width: 60%;">
-        <p>Already have an account? <a href="#">Sign in</a>.</p>
+        <p>Already have an account? <a href="ingreso">Sign in</a>.</p>
     </div>
 </form>
 
