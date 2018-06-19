@@ -1,0 +1,73 @@
+{% extends "baseCliente.html" %}
+{% block contenido %}
+
+<h1 style="text-align: center;">Perfil</h1>
+
+<table class="egt">
+	<tr>
+		<th>No Viajero: </th>
+		<td>{{cliente.numero_viajero}}</td>
+	</tr>
+	<tr>
+		<th>Nombres: </th>
+		<td>{{cliente.primer_nombre}} {{cliente.segundo_nombre}} </td>
+	</tr>
+	<tr>
+		<th>Apellidos: </th>
+		<td>{{cliente.primer_apellido}} {{cliente.segundo_apellido}} </td>
+	</tr>
+	<tr>
+		<th>Telefono Fijo: </th>
+		<td>{{cliente.telefono_fijo}}</td>
+	</tr>
+	<tr>
+		<th>Telefono Movil: </th>
+		<td>{{cliente.telefono_movil}}</td>
+	</tr>
+	<tr>
+		<th>Email: </th>
+		<td>{{cliente.email_pasajero}}</td>
+	</tr>
+	{% if cliente.cliente_natural %}
+	<tr>
+		<th>Fecha Nacimiento: </th>
+		<td>{{cliente.cliente_natural.fecha_nacimiento}}</td>
+	</tr>
+	{% endif %}
+	{% if cliente.cliente_empresa %}
+	<tr>
+		<th>Nombre Empresa: </th>
+		<td>{{cliente.cliente_empresa.nombre_empresa}}</td>
+	</tr>
+	<tr>
+		<th>Nic Empresa: </th>
+		<td>{{cliente.cliente_empresa.nic_empresa}}</td>
+	</tr>
+	<tr>
+		<th>Contacto: </th>
+		<td>{{cliente.cliente_empresa.nombre_contacto}}</td>
+	</tr>
+	{% endif %}
+</table>
+<h1 style="text-align: center;">Tarjeta</h1>
+
+<table class="egt">
+	{% if tarjeta %}
+	<tr>
+		<th>No Tarjeta</th>
+		<th>Nombre Tarjeta</th>
+		<th>Fecha Tarjeta</th>
+		<th>Vencimiento</th>
+	</tr>
+	<tr>
+		<td>{{tajeta.numero_tarjeta}}</td>
+		<td>{{tajeta.nombre_tarjeta}}</td>
+		<td>{{tajeta.fecha_tarjeta}}</td>
+		<td>{{tajeta.vencimiento}}</td>
+	</tr>
+	{% else %}
+	<h3>No hay tarjeta asignada</h3>
+	{% endif %}
+</table>
+<div align="center"><a href="tarjeta" type="submit" class="btn btn-info" style="width: 40%">Ingresar nueva tarjeta</a></div>
+{% endblock %}

@@ -102,3 +102,14 @@ class GatewayForm(forms.ModelForm):
             'aeropuerto':forms.Select(attrs={'class':'form-control'}),
 
         }
+
+class TargetaForm(forms.ModelForm):
+    class Meta:
+        model = tipo_tarjeta
+        exclude = ()
+        field = [
+            'nombre_tarjeta',
+        ]
+        widgets = {
+            'nombre_tarjeta':forms.TextInput(attrs={'class':'form-control','placeholder':'Escriba el Tipo de Documento','autofocus':'True','required':'True','maxlength':'30'}),
+        }

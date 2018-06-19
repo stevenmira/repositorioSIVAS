@@ -25,5 +25,7 @@ urlpatterns = [
     url(r'^register$', register, name='register'),
     url(r'^registeremp$', register_emp, name='registerempresa'),
     url(r'^ingreso$', ingreso, name='ingreso'),
-
+    url(r'^tarjeta$', tarjeta, name='tarjeta'),
+    url(r'^perfil/(?P<pk>\d+)/$', perfil, name='perfil'),
+    
 ]

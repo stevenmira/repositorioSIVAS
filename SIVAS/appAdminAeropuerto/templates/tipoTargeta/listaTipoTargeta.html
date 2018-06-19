@@ -1,0 +1,56 @@
+{% extends "baseAdmin1.html" %}
+{% block contenido %}
+
+
+
+
+<div class="col-md-12 col-md-offset-0">
+        <legend class="the-legend"><h1 style="text-align: center;">Tipo de Targeta</h1></legend>
+    </div>
+
+
+<div class="row">
+    <span><p><a href="nuevo-targeta"><button class="btn btn-success"><i class="fa fa-fw -square -circle fa-plus-square"></i> Agregar Tipo Targeta</button></a></p>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr class="success">
+                    <th>Tipo de Targeta</th>
+                    <th style="width: 250px;">Acciones</th>
+                </tr>
+                {% if object_list %}
+                {% for tipo in object_list %}
+
+                <tr>
+                    <td>{{tipo.nombre_tarjeta}}</td>
+                    <td>
+                        <a class="btn btn-info" href="{% url "aaae:targetaEditar" tipo.id_tipo_tarjeta %}">Editar</a>
+                        <a class="btn btn-danger" href="{% url "aaae:targetaEliminar" tipo.id_tipo_tarjeta %}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <h3>No hay Tipos de Targetas</h3>
+                {% endif %}
+            </table>
+
+            <ul class="pager">
+                <li>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+                </li>
+                <li>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                {% endif %}
+                </li>
+            </ul>
+
+        </div>
+    
+    
+  
+</div>
+
+
+{% endblock %}

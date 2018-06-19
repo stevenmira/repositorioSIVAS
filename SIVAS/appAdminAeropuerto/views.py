@@ -309,3 +309,47 @@ class GatewayDelete(DeleteView):
     model = gateway
     template_name = "gateway/gatewayDelete.html"
     success_url = reverse_lazy('aaae:listaAero')
+
+class ClienteList(ListView):
+    model = pasajero
+    template_name = "cliente/listaCliente.html"
+    paginate_by = 10
+
+class ClienteDelete(DeleteView):
+    model = pasajero
+    template_name = "cliente/clienteDelete.html"
+    success_url = reverse_lazy('aaae:listaCliente')
+
+###########################
+####CRUD Tipo Targeta ####
+###########################
+class TargetaList(ListView):
+    model = tipo_tarjeta
+    template_name = "tipoTargeta/listaTipoTargeta.html"
+    paginate_by = 10
+
+def targeta_create(request):
+    if request.method == 'POST':
+        form = TargetaForm(request.POST)
+        if  form.is_valid():
+            estadox = tipo_tarjeta(
+                nombre_tarjeta = form.cleaned_data['nombre_tarjeta'],
+            )
+            estadox.save()
+            return redirect('aaae:listaTargeta')
+        else:
+             return render(request,'tipoTargeta/tipoTargetaCreate.html',{'form':form})
+    else:
+        form = TargetaForm
+        return render(request,'tipoTargeta/tipoTargetaCreate.html',{'form':form})
+
+class TargetaUpdate(UpdateView):
+    model = tipo_tarjeta
+    form_class = TargetaForm
+    template_name = "tipoTargeta/tipoTargetaUpdate.html"
+    success_url = reverse_lazy('aaae:listaTargeta')
+
+class TargetaDelete(DeleteView):
+    model = tipo_tarjeta
+    template_name = "tipoTargeta/tipoTargetaDelete.html"
+    success_url = reverse_lazy('aaae:listaTargeta')

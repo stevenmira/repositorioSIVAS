@@ -1,0 +1,119 @@
+{% extends "baseAdmin1.html" %}
+{% block contenido %}
+
+
+
+
+<div class="col-md-12 col-md-offset-0">
+        <legend class="the-legend"><h1 style="text-align: center;">Listado de Clientes</h1></legend>
+    </div>
+
+
+<div class="row">
+    <span><p><a href="nuevo-genero"></a></p><h2>Clientes Naturales</h2>
+    
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr class="success">
+                    <th>Dui</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Telefono Fijo</th>
+                    <th>Telefono Movil</th>
+                    <th>E-mail</th>
+                    <th>Fecha Nacimiento</th>
+                    <th style="width: 250px;">Acciones</th>
+                </tr>
+                {% if object_list %}
+                {% for cliente in object_list %}
+                {% if cliente.cliente_natural %}
+                <tr>
+                    <td>{{cliente.numero_viajero}}</td>
+                    <td>{{cliente.primer_nombre}} {{cliente.segundo_nombre}}</td>
+                    <td>{{cliente.primer_apellido}} {{cliente.segundo_apellido}} </td>
+                    <td>{{cliente.telefono_fijo}}</td>
+                    <td>{{cliente.telefono_movil}}</td>
+                    <td>{{cliente.email_pasajero}}</td>
+                    <td>{{cliente.cliente_natural.fecha_nacimiento}}</td>
+                    <td>
+                        <a class="btn btn-danger" href="{% url "aaae:clienteEliminar" cliente.numero_viajero %}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <h3>No hay Clientes</h3>
+                {% endif %}
+            </table>
+            <br>
+            <ul class="pager">
+                <li>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+                </li>
+                <li>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                {% endif %}
+                </li>
+            </ul>
+
+        </div>
+
+        <h2>Clientes Juridicas</h2>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr class="success">
+                    <th>Nit Empresa</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Telefono Fijo</th>
+                    <th>Telefono Movil</th>
+                    <th>E-mail</th>
+                    <th>Nombre Empresa</th>
+                    
+                    <th style="width: 250px;">Acciones</th>
+                </tr>
+                {% if object_list %}
+                {% for cliente in object_list %}
+                {% if cliente.cliente_empresa %}
+                <tr>
+                    <td>{{cliente.numero_viajero}}</td>
+                    <td>{{cliente.primer_nombre}} {{cliente.segundo_nombre}}</td>
+                    <td>{{cliente.primer_apellido}} {{cliente.segundo_apellido}} </td>
+                    <td>{{cliente.telefono_fijo}}</td>
+                    <td>{{cliente.telefono_movil}}</td>
+                    <td>{{cliente.email_pasajero}}</td>
+                    <td>{{cliente.cliente_empresa.nombre_empresa}}</td>
+                    <td>
+                        <a class="btn btn-danger" href="{% url "aaae:clienteEliminar" cliente.numero_viajero %}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <h3>No hay Clientes</h3>
+                {% endif %}
+            </table>
+
+            <ul class="pager">
+                <li>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                {% endif %}
+                </li>
+                <li>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                {% endif %}
+                </li>
+            </ul>
+
+        </div>
+ 
+</div>
+
+
+{% endblock %}

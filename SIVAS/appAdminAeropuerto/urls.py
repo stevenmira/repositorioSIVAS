@@ -40,4 +40,15 @@ urlpatterns = [
     url(r'^nuevo-gateway$',GatewayCreate.as_view(), name='nuevoGateway'),
     url(r'^eliminar-gateway/(?P<pk>\d+)/$',GatewayDelete.as_view(), name='gatewayEliminar'),
 
+
+    url(r'^lista-cliente$',ClienteList.as_view(), name='listaCliente'),
+    url(r'^eliminar-cliente/(?P<pk>\d+)/$',ClienteDelete.as_view(),name='clienteEliminar'),
+
+    #CRUD TipoTargeta
+    url(r'^lista-targeta$',TargetaList.as_view(), name='listaTargeta'),
+    url(r'^nuevo-targeta$',targeta_create, name='nuevoTargeta'),
+    url(r'^editar-targeta/(?P<pk>\d+)/$',TargetaUpdate.as_view(),name='targetaEditar'),
+    url(r'^eliminar-targeta/(?P<pk>\d+)/$',TargetaDelete.as_view(),name='targetaEliminar'),
+
+
 ] 

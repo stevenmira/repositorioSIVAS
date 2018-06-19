@@ -71,8 +71,7 @@ def register_emp(request):
 		telefijo=request.POST['telefono_fijo']
 		telemovi=request.POST['telefono_movil']
 		email=request.POST['email_pasajero']
-		pas1=request.POST['psw']
-		pas=set_password(pas1)
+		pas=request.POST['psw']
 		print(pas)
 		
 		cliente = cliente_empresa.objects.create(nit=numedoc,nombre_empresa=nomemp,nic_empresa=nic,nombre_contacto=nomcon)
@@ -149,4 +148,20 @@ def busqueda(request):
 			return render(request,"reserva/inicio.html",{'MSG':msg})
 		else:
 			return render(request,"reserva/resultado.html",{'salidas':itinerario_partida,'regresos':itinerarios_regreso})
-			
+
+def tarjeta(request):
+
+	return render(request, "tarjeta/asignarTarjeta.html")
+
+def perfil(request,pk):
+	client = pasajero.objects.get(numero_viajero=pk)
+	try:
+		tarje = tarjeta.objects.get(pasajero=client)
+	except Exception as e:
+		tarje = None
+
+	context={
+		"cliente":client,
+		"tarjeta":tarje,
+	}
+	return render(request, "cliente/perfil.html",context)
