@@ -131,3 +131,19 @@ class VueloForm(forms.ModelForm):
             'tiempo_de_vuelo': forms.TextInput(attrs={'class':'form-control', 'type':'time', 'required':'True'}),
         }
 
+class ItinerarioForm(forms.ModelForm):
+    class Meta:
+        model = itinerario
+        exclude = ()
+        field = [
+            'fecha_itinerario'
+            'monto_total',
+            'aeropuert_origen',
+            'aeropuert_destino',
+            'linea_aerea',
+        ]
+        widgets = {
+            'monto_total': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Digite el monto', 'required':'True', 'min':'1', 'max':'99999'}),
+            'fecha_itinerario': forms.TextInput(attrs={'class':'form-control', 'type':'date', 'required':'True'}),
+        }
+

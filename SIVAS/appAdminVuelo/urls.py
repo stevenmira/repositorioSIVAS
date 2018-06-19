@@ -42,6 +42,7 @@ urlpatterns = [
 	url(r'^aerolinea/itinerario', itinerario_linea_list.as_view(), name='itinerariolinea_list'),
 	url(r'^itinerarios/linea/aerea/(?P<pk>\w+)/$', ItinerarioAerolinea, name='itiAerolinea'),
 	url(r'^itinerarios/', ItinerarioList, name='itinerarios'),
+	url(r'^itinerario/nuevo/(?P<pk>\w+)/$', ItinerarioCreation, name='itiCreate'),
 ]
 
 
