@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+<head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestión de Fondos</title>
+    <!-- Core CSS - Include with every page -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/estilogin.css' %}" rel="stylesheet" />
+</head>
+
+<body class="body-Login-back">
+
+    <div class="container">
+       
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center logo-margin ">
+              <h1 style="color:#F6F6F6; font-weight: bold; border: 0px;" >RESERVACIÓN DE VUELOS</h1>
+                </div>
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">                  
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Por favor Registrese</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form method="post" role="form">
+                        {% csrf_token %}
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Usuario" name="username" type="text" autofocus> {{ form.username.errors }}
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Contraseña" name="password" type="password" value=""> {{ form.password.errors }}
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me">Recuérdame
+                                    </label>
+                                    {% if form.errors %}
+                                     <p style="color: red;">Por favor corrige lo siguiente: </p>
+                                     {% endif %}
+                                     {{ form.errors }}
+
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <input class="btn btn-lg btn-success btn-block"  type="submit" value="Ingresar">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

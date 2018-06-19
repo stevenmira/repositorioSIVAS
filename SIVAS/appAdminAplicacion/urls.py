@@ -16,8 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from appAdminAplicacion.views import *
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', index, name='index'),
+    url(r'^$', login_required(index), name='indexe'),
+    url(r'^registrar/usuario', login_required(RegistroUsuario.as_view()), name='registrar'),
+    url(r'^lista/usuarios', login_required(UsuarioList.as_view()), name='list_usuario'),
 ]
