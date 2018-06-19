@@ -6237,3 +6237,15 @@ SIVAS/appAdminVuelo/migrations/__pycache__/__init__.cpython-35.pyc
 SIVAS/appAdminVuelo/__pycache__/admin.cpython-35.pyc
 *.pyc
 *.pyc
+SIVAS/appAdminAplicacion/__pycache__/urls.cpython-35.pyc
+SIVAS/appAdminAplicacion/__pycache__/urls.cpython-35.pyc
+SIVAS/appAdminAplicacion/__pycache__/views.cpython-35.pyc
+SIVAS/appAdminAplicacion/migrations/0001_initial.py
+SIVAS/appAdminAplicacion/migrations/0002_auto_20180617_0829.py
+SIVAS/appAdminAplicacion/migrations/__pycache__/0001_initial.cpython-35.pyc
+SIVAS/appCliente/__pycache__/views.cpython-35.pyc
+SIVAS/SIVAS/__pycache__/settings.cpython-35.pyc
+SIVAS/SIVAS/__pycache__/urls.cpython-35.pyc
+SIVAS/SIVAS/__pycache__/wsgi.cpython-35.pyc
+SIVAS/SIVAS/settings.py
+SIVAS/SIVAS/urls.py

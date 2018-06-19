@@ -455,6 +455,7 @@ class pasajero(models.Model):
 	telefono_fijo = models.CharField(max_length=15, null=True, blank=True)
 	telefono_movil = models.CharField(max_length=15, null=True, blank=True)
 	email_pasajero = models.EmailField(max_length=255, null=True, blank=True)
+	password = models.CharField(max_length=20,null=False, blank=False)
 
 	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)

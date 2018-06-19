@@ -45,7 +45,8 @@ def register(request):
 		tipo_document = tipo_documento.objects.get(id_tipo_documento=tip)
 		estado_civi = estado_civil.objects.get(id_estado_civil=est)
 		cliente = cliente_natural.objects.create(numero_documento=numedoc,genero=gener,tipo_documento=tipo_document,estado_civil=estado_civi,fecha_nacimiento=fech)
-		pasajero.objects.create(numero_viajero=numedoc,cliente_natural=cliente,primer_nombre=nam1,segundo_nombre=nam2,primer_apellido=apell1,segundo_apellido=apell2,telefono_fijo=telefijo,telefono_movil=telemovi,email_pasajero=email)
+		pasajero.objects.create(numero_viajero=numedoc,cliente_natural=cliente,primer_nombre=nam1,segundo_nombre=nam2,primer_apellido=apell1,segundo_apellido=apell2,telefono_fijo=telefijo,telefono_movil=telemovi,email_pasajero=email,password=pas)
+#		pasajero.objects.raw('INSERT INTO pasajero (numero_viajero,cliente_natural,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,telefono_fijo,telefono_movil,email_pasajero,password) VALUES(numedoc,cliente,nam1,nam2,apell1,apell2,telefijo,telemovi,email,MD5(pas))')
 		return render(request, "cliente/congratulation.html")
 	context={
 		'genero':gene,
@@ -68,7 +69,8 @@ def register_emp(request):
 		telefijo=request.POST['telefono_fijo']
 		telemovi=request.POST['telefono_movil']
 		email=request.POST['email_pasajero']
-		pas=request.POST['psw']
+		pas1=request.POST['psw']
+		pas=set_password(pas1)
 		print(pas)
 		
 		cliente = cliente_empresa.objects.create(nit=numedoc,nombre_empresa=nomemp,nic_empresa=nic,nombre_contacto=nomcon)
@@ -81,6 +83,38 @@ def before(request):
 	return render(request,"cliente/before.html")
 
 def ingreso(request):
+	if request.method == 'POST':
+		email = request.POST['email_pasajero']
+		pas=request.POST['psw']
+		try:
+			pase=pasajero.objects.get(email_pasajero=email)
+		except Exception as e:
+			pase=None
+
+		if pase ==None:
+			print("Esto es Nulo :c")
+			alert=1
+			context={
+				"alert":alert,
+			}
+			return render(request, "cliente/ingreso.html",context)
+		else:
+			print("Si hay correo uwu")
+			print(pase.password)
+			print(pas)
+			if pase.password != pas:
+				print('Pas diferente')
+				alert=1
+				context={
+					"alert":alert,
+				}
+				return render(request, "cliente/ingreso.html",context)
+			else:
+				context={
+					"id":pase.numero_viajero
+				}
+				print(pase.numero_viajero)
+				return render(request,"cliente/welcome.html",context)			
 	return render(request, "cliente/ingreso.html")
 
 def busqueda(request):
