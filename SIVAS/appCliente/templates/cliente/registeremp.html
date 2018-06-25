@@ -1,4 +1,7 @@
 {% extends "baseCliente.html" %}
+{% block log %}
+<div align="right"><a href="ingreso" data-toggle="tab">Ingresar</a><br><a href="before" data-toggle="tab">Registrarse</a></div>
+{% endblock %}
 {% block contenido %}
 
 <style>
@@ -82,8 +85,6 @@ a {
 
     if (psw =! pswrepeat) 
         alert("Las dos claves son distintas...")
-    else
-        alert("Las dos claves son iguales...")
     }
 
 </script>
@@ -96,6 +97,10 @@ a {
     <p>Por favor llenar este formulario para crear una cuenta.</p>
     <hr>
     <table align="center">
+        <tr>
+            <th width="200px"><label for="nameus"><b>Nombre de Usuario</b></label></th>
+            <th width="600px"><input type="text" placeholder="Introduzca Nombre de Usuario" name="nameus" required><span style="color: red; font-size: 40px;">*</span></th>
+        </tr>
         <tr>
             <th width="200px"><label for="primer_nombre"><b>Nombre</b></label></th>
             <th width="600px"><input type="text" placeholder="Introduzca Nombre" name="primer_nombre" required><span style="color: red; font-size: 40px;">*</span></th>

@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class pais(models.Model):
@@ -448,7 +448,8 @@ class cliente_empresa(models.Model):
 		return '%s %s %s %s' % (self.nit, self.nombre_empresa, self.nic_empresa, self.nombre_contacto)
 
 class pasajero(models.Model):
-	numero_viajero = models.CharField(primary_key=True, max_length=15)
+	id_pasajero = models.AutoField(primary_key=True)
+	numero_viajero = models.CharField(null=True, max_length=15)
 	cliente_natural = models.ForeignKey(cliente_natural, null=True, db_column='numero_documento')
 	cliente_empresa = models.ForeignKey(cliente_empresa, null=True, db_column='nit')
 	primer_nombre = models.CharField(max_length=20, null=False, blank=False)
@@ -459,7 +460,7 @@ class pasajero(models.Model):
 	telefono_fijo = models.CharField(max_length=15, null=True, blank=True)
 	telefono_movil = models.CharField(max_length=15, null=True, blank=True)
 	email_pasajero = models.EmailField(max_length=255, null=True, blank=True)
-	password = models.CharField(max_length=20,null=False, blank=False)
+	user_id =models.ForeignKey(User)
 
 	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 	creado_por = models.EmailField(verbose_name='Created By', max_length=255, null=True, blank=True)

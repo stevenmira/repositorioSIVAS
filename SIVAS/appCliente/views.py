@@ -7,6 +7,8 @@ from appAdminAplicacion.models import *
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 from django.views.generic.list import ListView
 from django.views.generic.edit import (
@@ -28,6 +30,7 @@ def register(request):
 	tidoc=tipo_documento.objects.all()
 	esta=estado_civil.objects.all()
 	if request.method == 'POST':
+
 		nam1=request.POST['primer_nombre']
 		nam2=request.POST['segundo_nombre']
 		apell1=request.POST['primer_apellido']
@@ -35,20 +38,25 @@ def register(request):
 		numedoc=request.POST['numero_documento']
 		telefijo=request.POST['telefono_fijo']
 		telemovi=request.POST['telefono_movil']
-		email=request.POST['email_pasajero']
+		emailx=request.POST['email_pasajero']
 		pas=request.POST['psw']
 		gen=request.POST['genero']
 		tip=request.POST['tipo']
 		est=request.POST['estado']
 		fech=request.POST['fecha']
-		print(pas)
-		
 		gener = genero.objects.get(id_genero=gen)
 		tipo_document = tipo_documento.objects.get(id_tipo_documento=tip)
 		estado_civi = estado_civil.objects.get(id_estado_civil=est)
+
+		#Primero ingresamos el usuario a Django
+		usuario=User(username=request.POST["nameus"],email=emailx)
+		usuario.set_password(pas)
+		usuario.save()
+
+		us=User.objects.latest('id')
+		#Luego se ingresa el usuario a la tabla Pasajero
 		cliente = cliente_natural.objects.create(numero_documento=numedoc,genero=gener,tipo_documento=tipo_document,estado_civil=estado_civi,fecha_nacimiento=fech)
-		pasajero.objects.create(numero_viajero=numedoc,cliente_natural=cliente,primer_nombre=nam1,segundo_nombre=nam2,primer_apellido=apell1,segundo_apellido=apell2,telefono_fijo=telefijo,telefono_movil=telemovi,email_pasajero=email,password=pas)
-#		pasajero.objects.raw('INSERT INTO pasajero (numero_viajero,cliente_natural,primer_nombre,segundo_nombre,primer_apellido,segundo_apellido,telefono_fijo,telefono_movil,email_pasajero,password) VALUES(numedoc,cliente,nam1,nam2,apell1,apell2,telefijo,telemovi,email,MD5(pas))')
+		pasajero.objects.create(numero_viajero=numedoc,cliente_natural=cliente,primer_nombre=nam1,segundo_nombre=nam2,primer_apellido=apell1,segundo_apellido=apell2,telefono_fijo=telefijo,telefono_movil=telemovi,email_pasajero=emailx,user_id=us)
 		return render(request, "cliente/congratulation.html")
 	context={
 		'genero':gene,
@@ -72,10 +80,14 @@ def register_emp(request):
 		telemovi=request.POST['telefono_movil']
 		email=request.POST['email_pasajero']
 		pas=request.POST['psw']
-		print(pas)
+		
+		usuario=User(username=request.POST["nameus"],email=email)
+		usuario.set_password(pas)
+		usuario.save()
+		us=User.objects.latest('id')
 		
 		cliente = cliente_empresa.objects.create(nit=numedoc,nombre_empresa=nomemp,nic_empresa=nic,nombre_contacto=nomcon)
-		pasajero.objects.create(numero_viajero=numedoc,cliente_empresa=cliente,primer_nombre=nam1,segundo_nombre=nam2,primer_apellido=apell1,segundo_apellido=apell2,telefono_fijo=telefijo,telefono_movil=telemovi,email_pasajero=email)
+		pasajero.objects.create(numero_viajero=numedoc,cliente_empresa=cliente,primer_nombre=nam1,segundo_nombre=nam2,primer_apellido=apell1,segundo_apellido=apell2,telefono_fijo=telefijo,telefono_movil=telemovi,email_pasajero=email,user_id=us)
 		return render(request, "cliente/congratulation.html")
 
 	return render(request,"cliente/registeremp.html")
@@ -85,37 +97,22 @@ def before(request):
 
 def ingreso(request):
 	if request.method == 'POST':
+
 		email = request.POST['email_pasajero']
 		pas=request.POST['psw']
-		try:
-			pase=pasajero.objects.get(email_pasajero=email)
-		except Exception as e:
-			pase=None
 
-		if pase ==None:
+		user = authenticate(username=email,password=pas)
+
+		if user is not None:
+			login(request,user)
+			return render(request,"cliente/welcome.html")
+		else:
 			print("Esto es Nulo :c")
 			alert=1
 			context={
 				"alert":alert,
 			}
 			return render(request, "cliente/ingreso.html",context)
-		else:
-			print("Si hay correo uwu")
-			print(pase.password)
-			print(pas)
-			if pase.password != pas:
-				print('Pas diferente')
-				alert=1
-				context={
-					"alert":alert,
-				}
-				return render(request, "cliente/ingreso.html",context)
-			else:
-				context={
-					"id":pase.numero_viajero
-				}
-				print(pase.numero_viajero)
-				return render(request,"cliente/welcome.html",context)			
 	return render(request, "cliente/ingreso.html")
 
 
@@ -167,8 +164,8 @@ def tarjeta(request):
 
 	return render(request, "tarjeta/asignarTarjeta.html")
 
-def perfil(request,pk):
-	client = pasajero.objects.get(numero_viajero=pk)
+def perfil(request):
+	client = pasajero.objects.get(user_id=request.user.id)
 	try:
 		tarje = tarjeta.objects.get(pasajero=client)
 	except Exception as e:
@@ -179,3 +176,7 @@ def perfil(request,pk):
 		"tarjeta":tarje,
 	}
 	return render(request, "cliente/perfil.html",context)
+
+def logoute(request):
+	logout(request)
+	return redirect('/ingreso')

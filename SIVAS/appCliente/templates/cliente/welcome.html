@@ -1,8 +1,11 @@
 {% extends "baseCliente.html" %}
+{% block log %}
+<div align="right"><a href="perfil" data-toggle="tab">Perfil</a><br><a href="logout" data-toggle="tab">Salir</a></div>
+{% endblock %}
 {% block contenido %}
 
 <h1 style="text-align: center;">Bienvenido..!!</h1>
 
-<div align="center"><a href="perfil/{{id}}" type="submit" class="btn btn-info" style="width: 40%" name="id" id="id">Perfil</a></div>
+<div align="center"><a href="perfil" type="submit" class="btn btn-info" style="width: 40%" name="id" id="id">Perfil</a></div>
 
 {% endblock %}

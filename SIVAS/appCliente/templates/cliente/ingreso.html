@@ -1,4 +1,7 @@
 {% extends "baseCliente.html" %}
+{% block log %}
+<div align="right"><a href="ingreso" data-toggle="tab">Ingresar</a><br><a href="before" data-toggle="tab">Registrarse</a></div>
+{% endblock %}
 {% block contenido %}
 
 <style>
@@ -78,7 +81,7 @@ a {
 <h1 style="text-align: center;">Login</h1>
 
 {% if alert == 1 %}
-    <h3 align="center"><span style="color: red">Error correo o contraseña erronea</span></h3>
+    <h3 align="center"><span style="color: red">Error username o contraseña</span></h3>
 {% endif %}
 
 <form action="" name="f1" method="post">
@@ -87,8 +90,8 @@ a {
     <hr>
     <table align="center">
         <tr>
-            <th><label for="email_pasajero"><b>E-mail</b></label></th>
-            <th><input type="email" placeholder="Introduzca Email" name="email_pasajero" required="true" style="width: 150%"></th>
+            <th width="200px"><label for="email_pasajero"><b>Nombre Usuario </b></label></th>
+            <th><input type="text" placeholder="Introduzca Username" name="email_pasajero" required="true" style="width: 150%"></th>
         </tr>
         <tr>
             <th><label for="psw"><b>Password</b></label></th>

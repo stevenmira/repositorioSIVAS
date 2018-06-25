@@ -84,9 +84,9 @@ WSGI_APPLICATION = 'SIVAS.wsgi.application'
 DATABASES = { 
     'default': { 
        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-       'NAME': 'BDSIVAS2',      #Nombre de la BBDD
+       'NAME': 'BDSIVAS',      #Nombre de la BBDD
        'USER': 'postgres', 
-        'PASSWORD': 'admin', 
+        'PASSWORD': 'postgres', 
         'HOST': 'localhost', 
         'PORT': '5432', 
     } 

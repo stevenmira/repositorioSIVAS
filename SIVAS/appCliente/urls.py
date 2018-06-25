@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from appCliente.views import *
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.views import logout_then_login
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,9 +27,10 @@ urlpatterns = [
     url(r'^register$', register, name='register'),
     url(r'^registeremp$', register_emp, name='registerempresa'),
     url(r'^ingreso$', ingreso, name='ingreso'),
-    url(r'^tarjeta$', tarjeta, name='tarjeta'),
-    url(r'^perfil/(?P<pk>\d+)/$', perfil, name='perfil'),
+    url(r'^tarjeta$', login_required(tarjeta), name='tarjeta'),
+    url(r'^perfil$', login_required(perfil), name='perfil'),
     url(r'^cliente/buscar$',indexBusqueda,name='buscarVuelo'),
-    url(r'^cliente/resultado$',busqueda,name='resultado')
+    url(r'^cliente/resultado$',busqueda,name='resultado'),
+    url(r'^logout$', login_required(logoute), name='logout'),
 
 ]
