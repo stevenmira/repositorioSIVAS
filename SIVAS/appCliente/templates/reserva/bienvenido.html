@@ -1,0 +1,176 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<title>BIENVENIDO</title>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+<link href="{% static 'css/bootstrap-select.min.css' %}" rel="stylesheet" />
+<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
+
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font: 400 15px/1.8 "Lato", sans-serif;
+    color: #777;
+  }
+
+  .vertical-offset-100{
+      padding-top:100px;
+  }
+
+  .bgimg-1{
+    background-image:url({% static 'img/2.png' %});
+    min-height: 100%;
+    position: relative;
+    opacity: 0.90;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #444;
+  }
+
+
+  h3 {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font: 20px "Lato", sans-serif;
+    color: #fff;
+  }
+  h5 {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+  p{
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font: 12px "Lato", sans-serif;
+    color: #fff;
+  }
+
+  /* Turn off parallax scrolling for tablets and phones */
+  @media only screen and (max-device-width: 1024px) {
+      .bgimg-1, .bgimg-2, .bgimg-3 {
+          background-attachment: scroll;
+      }
+  }
+</style>
+</head>
+<body>
+
+<div class="bgimg-1">
+
+  <section class="content-header">
+      <a href="{% url 'ac:ingreso' %}" style="color: #000; font-family: all; letter-spacing: 5px; text-decoration: none;" class="col-md-offset-11"> <b>HOME</b> <i class="fa fa-plane"></i></a>
+  </section>
+  
+  <div class="container">
+      <div class="row vertical-offset-100">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel" style="background-color: #1565c0; color: #fff; ">
+            <div class="panel-heading">
+              <h3 class="panel-title" align="center">RESERVAR VIAJE</h3>
+          </div>
+            <div class="panel-body" style="background-color: #1565c0;">
+              <form accept-charset="UTF-8" role="form" method="post">
+                {% csrf_token  %}
+                <fieldset>
+                  <div class="radio">
+                    <label style="color: #fff; font-size: 13px;">
+                      <input name="radio" type="radio" checked="on">
+                          Viaje de Ida y Vuelta
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label style="color: #fff; font-size: 13px;">
+                      <input name="radio" type="radio" disabled="on">
+                          Viaje Sencillo
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label style="color: #fff; font-size: 13px;">
+                      <input name="radio" type="radio" disabled="on">
+                          Varias Ciudades
+                    </label>
+                  </div>
+
+                  <div class="row">
+                      <div class="form-group col-md-6">
+                            <h5>DESDE</h5>
+                            <select type="text" name="aeropuerto_origen" class="form-control selectpicker" data-Live-search="true">
+                                {% for aeropuerto in aeropuertos %}
+                               <option name="aeropuerto_origen" class="" value="{{aeropuerto.codigo_aeropuerto}}">{{aeropuerto.nombre_aeropuerto}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <h5>HASTA</h5>
+                            <select type="text" name="aeropuerto_destino" class="form-control selectpicker" data-Live-search="true">
+                                {% for aeropuerto in aeropuertos %}
+                               <option name="aeropuerto_destino" class="" value="{{aeropuerto.codigo_aeropuerto}}">{{aeropuerto.nombre_aeropuerto}}</option>
+                                {% endfor %}
+                            </select>
+                        </div> 
+                  </div>
+                  <div class="row">
+                      <div class="form-group col-md-6">
+                        <p>FECHA DE SALIDA</p>
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </div>
+                                <input class="form-control" type="date" name="salida">
+                          </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                        <p>FECHA DE REGRESO</p>
+                          <div class="input-group">
+                            <div class="input-group-addon">
+                              <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </div>
+                                <input class="form-control" type="date" name="regreso">
+                          </div>
+                        </div>
+                  </div>
+                  {% if msj != 0 %}
+                    <p align="center" style="color: #ffff00;"> {{msj}}</p>
+                  {% endif %}
+
+                  <div class="checkbox">
+                    <label style="color: #fff; font-size: 13px;">
+                      <input name="escalas" type="checkbox">
+                          Sin escalas
+                    </label>
+                  </div>
+                    
+
+                  <div class="row"> 
+                    <div class="form-group col-md-12">
+                  <input class="btn btn-lg col-lg-3 btn-info pull-right" type="submit" value="BUSCAR">
+                    </div>
+                  </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div style="position:relative;">
+  <div style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">
+    <p>Scroll up and down to really get the feeling of how Parallax Scrolling works.</p>
+  </div>
+</div>
+</body>
+    <script src="{% static 'js/jQuery-2.1.4.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</html>

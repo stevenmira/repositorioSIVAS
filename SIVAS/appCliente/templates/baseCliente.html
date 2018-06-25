@@ -2,6 +2,15 @@
 {% load staticfiles %}
 
 <html lang="en" class="no-js">
+	<style type="text/css">
+		h3 {
+		    letter-spacing: 5px;
+		    text-transform: uppercase;
+		    font: 20px "Lato", sans-serif;
+		    color: #fff;
+		    text-align: center;
+		  }
+	</style>
 	<head>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
@@ -10,175 +19,33 @@
 		<meta name="description" content="Sistema de Reservación de Vuelos Áereos" />
 		<meta name="keywords" content="horizontal menu, microsoft menu, drop-down menu, mega menu, javascript, jquery, simple menu" />
 		<meta name="author" content="Codrops" />
-		<link href="{% static '../favicon.ico' %}" rel="shortcut icon" />
-		<link href="{% static 'css/default.css' %}" rel="stylesheet" />
-		<link href="{% static 'css/component.css' %}" rel="stylesheet" />
-		<script src="{% static 'js/modernizr.custom.js' %}"></script>
+		<link href="{% static 'css/font-awesome.css' %}" rel="stylesheet" />
 		<!-- Bootstrap 3.3.5 -->
     	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
 
 	</head>
 	<body>
-		<div class="container">
-			<header class="clearfix">
-				<span>SIVAS</span>
-				{% block log %}
-		        {% endblock %}
-				<h1>SISTEMA DE VUELOS ONLINE</h1>
-			</header>	
-			<div class="main">
-				<nav id="cbp-hrmenu" class="cbp-hrmenu">
-					<ul>
-							<li>
-									<a href="#">Administración</a>
-									<div class="cbp-hrsub">
-										<div class="cbp-hrsub-inner"> 
-											<div>
-												<h4>Administración de Aeropuerto</h4>
-												<ul>
-													<li><a href="#">Consultar Aeropuerto</a></li>
-													
-												</ul>
-											</div>
-											<div>
-												<h4>Administración de Vuelo</h4>
-												<ul>
-													<li><a href="#">Opcion 1</a></li>
-													<li><a href="#">Opcion 2</a></li>
-												</ul>
-											</div>
-											<div>
-												<h4>Administración de Aplicacion</h4>
-												<ul>
-													<li><a href="#">Opcion 1</a></li>
-													<li><a href="#">Opcion 2</a></li>
-												</ul>
-											</div>
-										</div><!-- /cbp-hrsub-inner -->
-									</div><!-- /cbp-hrsub -->
-								</li>
-						<li>
-							<a href="#">Reservación</a>
-							<div class="cbp-hrsub">
-								<div class="cbp-hrsub-inner"> 
-									<div>
-										<h4>Learning &amp; Games</h4>
-										<ul>
-											<li><a href="#">Catch the Bullet</a></li>
-											<li><a href="#">Snoopydoo</a></li>
-										</ul>
-									</div>
-									<div>
-										<h4>Utilities</h4>
-										<ul>
-											<li><a href="#">Gadget Finder</a></li>
-											<li><a href="#">Green Tree Express</a></li>
-										</ul>
-									</div>
-									<div>
-										<h4>Education</h4>
-										<ul>
-											<li><a href="#">Learn Thai</a></li>
-											<li><a href="#">Math Genius</a></li>
-										</ul>
-									</div>
-								</div><!-- /cbp-hrsub-inner -->
-							</div><!-- /cbp-hrsub -->
-						</li>
-						<li>
-							<a href="#">Información del viaje</a>
-							<div class="cbp-hrsub">
-								<div class="cbp-hrsub-inner">
-									<div>
-										<h4>Education &amp; Learning</h4>
-										<ul>
-											<li><a href="#">Learn Thai</a></li>
-											<li><a href="#">Math Genius</a></li>
-										</ul>
-										<h4>Professionals</h4>
-										<ul>
-											<li><a href="#">Success 1.0</a></li>
-											<li><a href="#">Moneymaker</a></li>
-										</ul>
-									</div>
-									<div>
-										<h4>Entertainment</h4>
-										<ul>
-											<li><a href="#">Gadget Finder</a></li>
-											<li><a href="#">Green Tree Express</a></li>
-										</ul>
-									</div>
-									<div>
-										<h4>Games</h4>
-										<ul>
-											<li><a href="#">Catch the Bullet</a></li>
-											<li><a href="#">Snoopydoo</a></li>
-										</ul>
-									</div>
-								</div><!-- /cbp-hrsub-inner -->
-							</div><!-- /cbp-hrsub -->
-						</li>
-						<li>
-							<a href="#">Ofertas y promociones</a>
-							<div class="cbp-hrsub">
-								<div class="cbp-hrsub-inner"> 
-									<div>
-										<h4>Learning &amp; Games</h4>
-										<ul>
-											<li><a href="#">Catch the Bullet</a></li>
-											<li><a href="#">Snoopydoo</a></li>
-										</ul>
-										<h4>Utilities</h4>
-										<ul>
-											<li><a href="#">Gadget Finder</a></li>
-										</ul>
-									</div>
-									<div>
-										<h4>Education</h4>
-										<ul>
-											<li><a href="#">Learn Thai</a></li>
-											<li><a href="#">Math Genius</a></li>
-											<li><a href="#">Chemokid</a></li>
-										</ul>
-										<h4>Professionals</h4>
-										<ul>
-											<li><a href="#">Success 1.0</a></li>
-											<li><a href="#">Moneymaker</a></li>
-										</ul>
-									</div>
-								</div><!-- /cbp-hrsub-inner -->
-							</div><!-- /cbp-hrsub -->
-						</li>
-						<li>
-							<a href="#">Contáctanos</a>
-							<div class="cbp-hrsub">
-								<div class="cbp-hrsub-inner"> 
-									<div>
-										<h4>Learning &amp; Games</h4>
-										<ul>
-											<li><a href="#">Catch the Bullet</a></li>
-											<li><a href="#">Snoopydoo</a></li>
-										</ul>
-										<h4>Utilities</h4>
-										<ul>
-											<li><a href="#">Gadget Finder</a></li>
-											<li><a href="#">Green Tree Express</a></li>
-										</ul>
-									</div>
-									<div>
-										<h4>Entertainment</h4>
-										<ul>
-											<li><a href="#">Gadget Finder</a></li>
-											<li><a href="#">Green Tree Express</a></li>
-										</ul>
-									</div>
-								</div><!-- /cbp-hrsub-inner -->
-							</div><!-- /cbp-hrsub -->
-						</li>
-					</ul>
-				</nav>
-			</div>
-		</div>
+		<nav class="navbar navbar-inverse" style="background-color: #3F729B;">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="{% url 'ac:bienvenido' %}" style="color: #fff;">SIVAS</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		      <li class="active"><a href="#" style="color: #fff;">Home</a></li>
+		      <li><a href="#" style="color: #fff;">Reservación</a></li>
+		      <li><a href="#" style="color: #fff;">Información del viaje</a></li>
+		      <li><a href="#" style="color: #fff;">Contáctanos</a></li>
+		    </ul>
+
+		    <ul class="nav navbar-nav navbar-right">
+		        {% block log %}
+		        {% endblock %}		    
+		    </ul>
+		  </div>
+		</nav>
+
+			<h3>SISTEMA DE VUELOS ONLINE</h3>
+		
 		<div class="container">
 			<div class="row">
 					{% block contenido %}
@@ -190,12 +57,6 @@
 	    {% block scripts %}
 	    {% endblock %}
 
-		<script src="{% static 'js/jquery1.9.1.min.js' %}"></script>
-		<script src="{% static 'js/cbpHorizontalMenu.min.js' %}"></script>
-		<script>
-			$(function() {
-				cbpHorizontalMenu.init();
-			});
-		</script>
+		
 	</body>
 </html>

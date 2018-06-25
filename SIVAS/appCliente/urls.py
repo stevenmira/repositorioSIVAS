@@ -18,6 +18,7 @@ from django.contrib import admin
 from appCliente.views import *
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.views import logout_then_login
+from appCliente.views2 import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -32,5 +33,6 @@ urlpatterns = [
     url(r'^cliente/buscar$',indexBusqueda,name='buscarVuelo'),
     url(r'^cliente/resultado$',busqueda,name='resultado'),
     url(r'^logout$', login_required(logoute), name='logout'),
-
+    url(r'^bienvenido$', bienvenido, name='bienvenido'),
+    url(r'^llegada/$', llegada, name='llegada'),
 ]
