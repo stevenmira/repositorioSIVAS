@@ -471,11 +471,11 @@ class pasajero(models.Model):
 		db_table = 'pasajero'
 
 	def __str__(self):
-		return '%s %s %s %s %s %s %s %s %s' % (self.numero_viajero, self.primer_apellido, self.segundo_nombre, self.tercer_nombre, self.primer_apellido, self.segundo_apellido, self.telefono_movil, self.telefono_fijo, self.email_pasajero)
+		return '%s %s %s %s %s %s %s %s %s %s' % (self.id_pasajero, self.numero_viajero, self.primer_apellido, self.segundo_nombre, self.tercer_nombre, self.primer_apellido, self.segundo_apellido, self.telefono_movil, self.telefono_fijo, self.email_pasajero)
 
 class detalle_reservacion(models.Model):
 	id_detalle_reservacion = models.AutoField(primary_key=True)
-	numero_viajero = models.ForeignKey(pasajero, null=False, db_column='numero_viajero')
+	numero_viajero = models.ForeignKey(pasajero, null=False, db_column='id_pasajero')
 	codigo_reservacion = models.ForeignKey(reservacion, null=False, db_column='codigo_reservacion')
 
 	creado_en = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -545,7 +545,7 @@ class tipo_tarjeta(models.Model):
 class tarjeta(models.Model):
 	id_tarjeta = models.AutoField(primary_key=True)
 	tipo_tarjeta = models.ForeignKey(tipo_tarjeta, null=False, db_column='id_tipo_tarjeta')
-	pasajero = models.ForeignKey(pasajero, null=False, db_column='numero_viajero')
+	pasajero = models.ForeignKey(pasajero, null=False, db_column='id_pasajero')
 	numero_tarjeta = models.CharField(max_length=15, null=False, blank=False)
 	nombre_tarjeta = models.CharField(max_length=35, null=True, blank=True)
 	vencimiento = models.DateField()

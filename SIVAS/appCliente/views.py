@@ -160,23 +160,46 @@ def busqueda(request):
 		ciudades = ciudad.objects.all()
 	return render(request,"reserva/inicio.html",{'ciudades':ciudades})
 
-def tarjeta(request):
-
-	return render(request, "tarjeta/asignarTarjeta.html")
-
 def perfil(request):
 	client = pasajero.objects.get(user_id=request.user.id)
-	try:
-		tarje = tarjeta.objects.get(pasajero=client)
-	except Exception as e:
-		tarje = None
-
+	tarje = tarjeta.objects.filter(pasajero=client)
+	detall_rese = detalle_reservacion.objects.filter(numero_viajero=client)
+	lista = []
+	print(detall_rese)
+	for deta in detall_rese:
+		detall_via = detalle_viaje.objects.get(reservacion=detall_rese.codigo_reservacion)
+		pag = pago.objects.get(reservacion=detall_rese.codigo_reservacion)
+		if pago.estado_pago is "Activo":
+			xs=[detall_rese.codigo_reservacion.codigo_reservacion,detall_rese.codigo_reservacion.fecha_salida,detall_rese.codigo_reservacion.fecha_regreso,pag.cantidad_pago,"Pagado"]
+		else:
+			xs=[detall_rese.codigo_reservacion.codigo_reservacion,detall_rese.codigo_reservacion.fecha_salida,detall_rese.codigo_reservacion.fecha_regreso,pag.cantidad_pago,"No pagado"]
+		lista.append(xs)
+	
 	context={
 		"cliente":client,
 		"tarjeta":tarje,
+		"list":lista,
 	}
 	return render(request, "cliente/perfil.html",context)
 
 def logoute(request):
 	logout(request)
 	return redirect('/ingreso')
+
+def tarjet(request):
+	pasaje = pasajero.objects.get(user_id=request.user.id)
+	tipo = tipo_tarjeta.objects.all()
+	if request.method == 'POST':
+		num = request.POST['numero_tarjeta']
+		nom = request.POST['nombre_tarjeta']
+		ven = request.POST['vencimiento']
+		tip = request.POST['tipo']
+		print(tip)
+		tipox = tipo_tarjeta.objects.get(id_tipo_tarjeta=tip)
+
+		tarjet = tarjeta.objects.create(tipo_tarjeta=tipox,pasajero=pasaje,numero_tarjeta=num,nombre_tarjeta=nom,vencimiento=ven)
+		return render(request,"tarjeta/exito.html")
+	context = {
+		"tipo":tipo,
+	}
+	return render(request, "tarjeta/asignarTarjeta.html", context)

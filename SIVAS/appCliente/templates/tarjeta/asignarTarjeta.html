@@ -1,10 +1,128 @@
 {% extends "baseCliente.html" %}
 {% block log %}
-<li><a href="Perfil" style="color: #fff;">Perfil<i class="fa fa-sign-in" aria-hidden="true"> </i></a></li>
+<li><a href="perfil" style="color: #fff;">Perfil<i class="fa fa-sign-in" aria-hidden="true"> </i></a></li>
 <li><a href="logout" style="color: #fff;">Salir<i class="fa fa-user-plus" aria-hidden="true"> </i></a></li>
 {% endblock %}
 {% block contenido %}
 
-<h1 style="text-align: center;">Bienvenido..!!</h1>
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
 
+* {
+    box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+    background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password], input[type=email], input[type=number] {
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+select,option{
+    width: 50%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+}
+
+.registerbtn:hover {
+    opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+    color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+    background-color: #f1f1f1;
+    text-align: center;
+}
+</style>
+
+<script>
+    function comprobarClave(){ 
+    psw = document.f1.psw.value 
+    pswrepeat = document.f1.pswrepeat.value 
+
+    if (psw != pswrepeat) 
+        alert("Las dos claves son distintas...")
+    }
+
+</script>
+
+<h1 style="text-align: center;">Registro de Cliente</h1>
+
+<form action="" name="f1" method="post">
+{% csrf_token  %}
+  <div class="container">
+    <p>Por favor llenar este formulario para ingresar una nueva tarjeta.</p>
+    <hr>
+    <table align="center">
+        <tr>
+            <th width="200px"><label for="numero_tarjeta"><b>Numero de Tarjeta</b></label></th>
+            <th width="600px"><input type="number" placeholder="Introduzca numero de tarjeta" name="numero_tarjeta" required><span style="color: red; font-size: 40px;">*</span></th>
+        </tr>
+        <tr>
+            <th width="200px"><label for="nombre_tarjeta"><b>Nombre</b></label></th>
+            <th width="600px"><input type="text" placeholder="Introduzca Nombre Tarjeta" name="nombre_tarjeta" required><span style="color: red; font-size: 40px;">*</span></th>
+        </tr>
+        <tr>
+            <th><label for="vencimiento"><b>Fecha de Vencimiento</b></label></th>
+            <th><input style="width: 50%" class="form-control" type="date" name="vencimiento" required="true"><th>
+        </th>
+        <tr>
+            <th><label for="tipo"><b>Tipo de Tarjeta </b></label></th>
+            <th><select style="width: 15%" name="tipo"  class="form-control selectpicker" id="tipo" data-Live-search="true">
+            {% for tip in tipo %}
+            <option value="{{tip.id_tipo_tarjeta}}" style="width: 15%">{{tip.nombre_tarjeta}}</option>
+            {% endfor %}
+          </select></th>
+        </tr>
+    </table>    
+    </div>
+    <hr>
+    <div align="center">
+    <button style="width: 75%;"  type="submit" class="registerbtn"  value="Comprobar si son iguales">Ingresar Nueva Tarjeta</button></div>
+    </div>
+</form>
 {% endblock %}
