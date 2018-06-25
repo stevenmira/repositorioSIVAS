@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from appCliente.views import *
+from appCliente.views2 import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -28,6 +29,8 @@ urlpatterns = [
     url(r'^tarjeta$', tarjeta, name='tarjeta'),
     url(r'^perfil/(?P<pk>\d+)/$', perfil, name='perfil'),
     url(r'^cliente/buscar$',indexBusqueda,name='buscarVuelo'),
-    url(r'^cliente/resultado$',busqueda,name='resultado')
+    url(r'^cliente/resultado$',busqueda,name='resultado'),
+    url(r'^bienvenido$', bienvenido, name='bienvenido'),
+    url(r'^llegada/$', llegada, name='llegada'),
 
 ]
