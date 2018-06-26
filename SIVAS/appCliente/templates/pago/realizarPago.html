@@ -1,0 +1,28 @@
+{% extends "baseCliente.html" %}
+{% block log %}
+<li><a href="Perfil" style="color: #fff;">Perfil<i class="fa fa-sign-in" aria-hidden="true"> </i></a></li>
+<li><a href="logout" style="color: #fff;">Salir<i class="fa fa-user-plus" aria-hidden="true"> </i></a></li>
+{% endblock %}
+{% block contenido %}
+<form action="" name="f1" method="post">
+{% csrf_token  %}
+
+<h1 style="text-align: center;">Realizar Pago de Viaje</h1>
+
+
+<h1 style="text-align: center; font-size: 30px">Total a pagar por la Reservacion (Ida y Vuelta):</h1>
+<h1 style="text-align: center; font-size: 28px; color: red"><span> ${{acmu}}</span></h1><br>
+<h3 style="text-align: center; font-size: 20px">Seleccione la tarjeta</h3>
+
+<div align="center"> <select style="width: 15%" name="tarjett"  class="form-control selectpicker" id="tarjett" data-Live-search="true">
+            {% for tar in targ %}
+            <option value="{{tar.id_tarjeta}}" style="width: 15%">{{tar.nombre_tarjeta}}</option>
+            {% endfor %}
+          </select>
+</div>
+
+<br><br>
+<div align="center"><button style="width: 75%;"  type="submit" class="btn btn-success"  value="Comprobar si son iguales">Realizar Pago</button></div>
+</form>
+
+{% endblock %}

@@ -29,10 +29,11 @@ urlpatterns = [
     url(r'^registeremp$', register_emp, name='registerempresa'),
     url(r'^ingreso$', ingreso, name='ingreso'),
     url(r'^tarj$', tarjet, name='tarjeta'),
-    url(r'^perfil$', login_required(perfil), name='perfil'),
+    url(r'^perfil/$', login_required(perfil), name='perfil'),
     url(r'^cliente/buscar$',indexBusqueda,name='buscarVuelo'),
     url(r'^cliente/resultado$',busqueda,name='resultado'),
     url(r'^logout$', login_required(logoute), name='logout'),
     url(r'^bienvenido$', bienvenido, name='bienvenido'),
     url(r'^llegada/$', llegada, name='llegada'),
+    url(r'^pagox/(?P<pk>\w+)/$', login_required(pagox), name='pagox'),
 ]

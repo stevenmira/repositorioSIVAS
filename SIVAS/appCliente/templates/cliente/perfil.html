@@ -86,20 +86,36 @@
 <table class="table table-striped table-bordered table-hover table-condensed">
     <tr class="success">
         <th>Codigo Reservacion</th>
+        <th>Tipo de Viaje</th>
         <th>Fecha de Salida</th>
         <th>Fecha de Regreso</th>
         <th>Costo</th>
         <th>Estado</th>
+        <th>Realizar<br>Pago</th>
     </tr>
     
     	{% for li in list %}
 
     <tr>
         <td>{{li.0}}</td>
-        <td>{{li.1}}</td>
+        <td>
+        	{% if li.1 == '1' %}
+        	Ida
+        	{% else %}
+        	Vuelta
+        	{% endif %}
+        </td>
         <td>{{li.2}}</td>
         <td>{{li.3}}</td>
-        <td>{{li.4}}</td>
+        <td>${{li.4}}</td>
+        <td>{{li.5}}</td>
+        <td>
+        	{% if li.5 == 'No Pagado' %}
+        	<a class="btn btn-danger" href="/pagox/{{li.0}}">Pagar</a>
+        	{% else %}
+        	Ya se realizo Pago
+        	{% endif %}
+        </td>
     </tr>
     	{% endfor %}
 

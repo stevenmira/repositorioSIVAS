@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+import time
 
 from django.views.generic.list import ListView
 from django.views.generic.edit import (
@@ -164,16 +165,26 @@ def perfil(request):
 	client = pasajero.objects.get(user_id=request.user.id)
 	tarje = tarjeta.objects.filter(pasajero=client)
 	detall_rese = detalle_reservacion.objects.filter(numero_viajero=client)
+
 	lista = []
-	print(detall_rese)
+	#print(detall_rese)
 	for deta in detall_rese:
-		detall_via = detalle_viaje.objects.get(reservacion=detall_rese.codigo_reservacion)
-		pag = pago.objects.get(reservacion=detall_rese.codigo_reservacion)
-		if pago.estado_pago is "Activo":
-			xs=[detall_rese.codigo_reservacion.codigo_reservacion,detall_rese.codigo_reservacion.fecha_salida,detall_rese.codigo_reservacion.fecha_regreso,pag.cantidad_pago,"Pagado"]
-		else:
-			xs=[detall_rese.codigo_reservacion.codigo_reservacion,detall_rese.codigo_reservacion.fecha_salida,detall_rese.codigo_reservacion.fecha_regreso,pag.cantidad_pago,"No pagado"]
-		lista.append(xs)
+		reserva = reservacion.objects.get(codigo_reservacion=deta.codigo_reservacion.codigo_reservacion)
+		detall_via = detalle_viaje.objects.filter(reservacion=reserva)
+		for detavia in detall_via:
+			iti = itinerario.objects.get(id_itinerario=detavia.itinerario.id_itinerario)
+			try:
+				pagoo = pago.objects.get(reservacion=reserva)
+				pag = pagoo.estado_pago
+			except Exception as e:
+				pag="No hay informacion"
+			
+			print(pag)
+			if pag == "Activo":
+				xs=[reserva.codigo_reservacion,detavia.bin_tipo,reserva.fecha_salida,reserva.fecha_regreso,iti.monto_total,"Pagado"]
+			else:
+				xs=[reserva.codigo_reservacion,detavia.bin_tipo,reserva.fecha_salida,reserva.fecha_regreso,iti.monto_total,"No Pagado"]
+			lista.append(xs)
 	
 	context={
 		"cliente":client,
@@ -203,3 +214,33 @@ def tarjet(request):
 		"tipo":tipo,
 	}
 	return render(request, "tarjeta/asignarTarjeta.html", context)
+
+
+def pagox(request,pk):
+	acumulador=0
+	reser = reservacion.objects.get(codigo_reservacion=pk)
+	detall_via = detalle_viaje.objects.filter(reservacion=reser)
+	pasa = pasajero.objects.get(user_id=request.user.id)
+	tarjes = tarjeta.objects.filter(pasajero=pasa)
+	for detavia in detall_via:
+		iti = itinerario.objects.get(id_itinerario=detavia.itinerario.id_itinerario)
+		acumulador = acumulador+iti.monto_total
+		print(acumulador)
+
+	if request.method ==  'POST':
+		estado = "Activo"
+		datee = time.strftime("%Y-%m-%d")
+		print(datee)
+		acum = acumulador
+		tagge=request.POST['tarjett']
+		tar = tarjeta.objects.get(id_tarjeta=tagge)
+
+		pags=pago.objects.create(tarjeta=tar,reservacion=reser,cantidad_pago=acum,fecha_pago=datee,estado_pago=estado)
+		
+		return render(request,"pago/exito.html")
+	context={
+		"acmu":acumulador,
+		"targ":tarjes,
+	}
+
+	return render(request,"pago/realizarPago.html",context)
